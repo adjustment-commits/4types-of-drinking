@@ -64,9 +64,32 @@
   .stand-quote {color:#fff; background:rgba(0,0,0,0.3); padding:6px 10px; border-radius:8px; display:inline-block; margin-top:8px;}
   #intakeInput {margin-top:20px; background:rgba(255,255,255,0.08); padding:12px; border-radius:10px;}
   input[type="number"] {width:60px; text-align:center; border-radius:6px; border:none; padding:4px;}
-  .drinkRow {margin:6px 0; display:flex; align-items:center; justify-content:space-between;}
-  .drinkRow span {flex:1; text-align:left;}
-  .drinkRow input {flex:0 0 60px;}
+.drinkRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 8px 0;
+}
+
+.drinkRow span.label {
+  flex: 1;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.drinkRow input {
+  flex: 0 0 70px; /* 入力欄の幅を固定 */
+  text-align: center;
+  border-radius: 6px;
+  border: none;
+  padding: 5px;
+}
+
+.drinkRow span.unit {
+  flex: 0 0 30px;
+  text-align: left;
+}
   .fade-in {opacity:0; transform:translateY(8px); animation:fadeUp 1.2s ease forwards;}
   @keyframes fadeUp{to{opacity:1; transform:translateY(0);}}
   @keyframes gradientShift {0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
@@ -135,17 +158,17 @@
   <p class="stand-quote fade-in" id="standQuote"></p>
   <p id="doseResult" class="desc"></p>
 
-  <div id="intakeInput" class="fade-in">
-    <h3>🍶 飲む予定を入力</h3>
-    <div class="drinkRow"><span>🍺 ビール（20g/本）</span><input type="number" id="beer" min="0" step="1" value="0"><span>本</span></div>
-    <div class="drinkRow"><span>🍹 酎ハイ（20g/缶）</span><input type="number" id="chu" min="0" step="1" value="0"><span>缶</span></div>
-    <div class="drinkRow"><span>🥃 ハイボール（20g/杯）</span><input type="number" id="high" min="0" step="1" value="0"><span>杯</span></div>
-    <div class="drinkRow"><span>🍶 日本酒（22g/合）</span><input type="number" id="sake" min="0" step="1" value="0"><span>合</span></div>
-    <div class="drinkRow"><span>🟤 ウイスキー（19g/杯）</span><input type="number" id="whisky" min="0" step="1" value="0"><span>杯</span></div>
-    <button type="button" onclick="calcTotalIntake()">合計で判定する</button>
-    <p id="intakeResult" class="desc"></p>
-    <p id="advice" class="desc" style="font-style:italic;"></p>
-  </div>
+ <div id="intakeInput" class="fade-in">
+  <h3>🍶 飲む予定を入力</h3>
+  <div class="drinkRow"><span class="label">🍺 ビール（20g/本）</span><input type="number" id="beer" min="0" step="1" value="0"><span class="unit">本</span></div>
+  <div class="drinkRow"><span class="label">🍹 酎ハイ（20g/缶）</span><input type="number" id="chu" min="0" step="1" value="0"><span class="unit">缶</span></div>
+  <div class="drinkRow"><span class="label">🥃 ハイボール（20g/杯）</span><input type="number" id="high" min="0" step="1" value="0"><span class="unit">杯</span></div>
+  <div class="drinkRow"><span class="label">🍶 日本酒（22g/合）</span><input type="number" id="sake" min="0" step="1" value="0"><span class="unit">合</span></div>
+  <div class="drinkRow"><span class="label">🟤 ウイスキー（19g/杯）</span><input type="number" id="whisky" min="0" step="1" value="0"><span class="unit">杯</span></div>
+  <button type="button" onclick="calcTotalIntake()">合計で判定する</button>
+  <p id="intakeResult" class="desc"></p>
+  <p id="advice" class="desc" style="font-style:italic;"></p>
+</div>
 
   <p class="desc" style="font-size:0.8em;color:#ccc;">
     ※ この診断はあくまで一般的な目安です。<br>
