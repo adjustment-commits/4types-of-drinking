@@ -8,73 +8,63 @@
 <meta name="theme-color" content="#e53935">
 <link rel="apple-touch-icon" sizes="192x192" href="./image/icon-192.png">
 <link rel="apple-touch-icon" sizes="512x512" href="./image/icon-512.png">
-
-<!-- iPad Pro 12.9" -->
-<link rel="apple-touch-startup-image"
-      href="./image/splash-2048x2732.png"
-      media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)">
-
-<!-- iPad Air / 10.9" / iPad mini -->
-<link rel="apple-touch-startup-image"
-      href="./image/splash-1536x2048.png"
-      media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)">
-
-<!-- fallback -->
-<link rel="apple-touch-startup-image" href="./image/splash-1536x2048.png">
-      
-<!-- iPad Pro 12.9" -->
-<link rel="apple-touch-startup-image" 
-      href="./image/splash-2048x2732.png"
-      media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)">
-<!-- iPhone 14 Pro, Pro Max -->
-<link rel="apple-touch-startup-image" 
-      href="./image/splash-1179x2556.png"
-      media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3)">
-<!-- iPhone 14, 13, 12, 11 -->
-<link rel="apple-touch-startup-image" 
-      href="./image/splash-1170x2532.png"
-      media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3)">
-<!-- Fallback -->
 <link rel="apple-touch-startup-image" href="./image/splash-2048x2732.png">
 
 <style>
-  :root {--ink:#111; --radius:12px; --shadow:0 2px 6px rgba(0,0,0,0.15);}
-  body {
-    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
-    color:var(--ink); background:#fafafa;
-    margin:0; padding:20px; max-width:640px; margin:auto;
-    transition:background 1s ease-in-out,color 1s ease;
-  }
-  h1{text-align:center;font-size:1.7em;margin:10px 0 20px;}
-  .question{margin:18px 0;}
-  button{
-    display:block;width:100%;padding:12px;margin:15px 0;
-    border:none;border-radius:var(--radius);font-size:1em;
-    background:#e53935;color:#fff;box-shadow:var(--shadow);cursor:pointer;
-  }
-  .result{text-align:center;display:none;}
-  img{width:100%;max-width:320px;border-radius:10px;}
-  .desc{margin-top:10px;font-size:0.95em;line-height:1.6;}
-  .stand-quote {
-    color:#fff;
-    text-shadow:0 2px 6px rgba(0,0,0,0.5);
-    background:rgba(0,0,0,0.25);
-    padding:8px 10px;
-    border-radius:8px;
-    display:inline-block;
-  }
-  #intakeInput{margin-top:20px;background:rgba(255,255,255,0.8);padding:12px;border-radius:10px;}
-  input{margin:4px;}
-  .drinkRow{margin:6px 0;}
-  .fade-in{opacity:0;transform:translateY(8px);animation:fadeUp 1.2s ease forwards;}
-  @keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
+:root {--ink:#111; --radius:12px; --shadow:0 2px 6px rgba(0,0,0,0.15);}
+body {
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
+  color:var(--ink); background:#fafafa;
+  margin:0; padding:20px; max-width:640px; margin:auto;
+  transition:background 1s ease-in-out,color 1s ease;
+}
+h1{text-align:center;font-size:1.7em;margin:10px 0 20px;word-break:keep-all;}
+.question{margin:18px 0;}
+button{
+  display:block;width:100%;padding:12px;margin:15px 0;
+  border:none;border-radius:var(--radius);font-size:1em;
+  background:#e53935;color:#fff;box-shadow:var(--shadow);cursor:pointer;
+}
+.result{text-align:center;display:none;}
+img{width:100%;max-width:320px;border-radius:10px;}
+.desc{margin-top:10px;font-size:0.95em;line-height:1.6;}
+.stand-quote {
+  color:#fff;text-shadow:0 2px 6px rgba(0,0,0,0.5);
+  background:rgba(0,0,0,0.25);padding:8px 10px;
+  border-radius:8px;display:inline-block;
+}
+#intakeInput{margin-top:20px;background:rgba(255,255,255,0.8);padding:12px;border-radius:10px;}
+input{margin:4px;}
+.drinkRow{margin:6px 0;}
+.fade-in{opacity:0;transform:translateY(8px);animation:fadeUp 1.2s ease forwards;}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
+.selectBox {margin:10px 0;padding:10px;background:#fff;border-radius:8px;box-shadow:var(--shadow);}
+label {display:inline-block;margin-right:10px;}
 </style>
 </head>
 <body>
 
 <h1>ALTI飲酒タイプ診断</h1>
 
-<div id="quiz">
+<!-- 🔹診断前設定 -->
+<div id="preSetting" class="fade-in">
+  <div class="selectBox">
+    <h3>今日の体調を選択</h3>
+    <label><input type="radio" name="condition" value="good"> 絶好調</label>
+    <label><input type="radio" name="condition" value="normal" checked> 普通</label>
+    <label><input type="radio" name="condition" value="tired"> 疲労気味</label>
+  </div>
+  <div class="selectBox">
+    <h3>シーンを選択</h3>
+    <label><input type="radio" name="scene" value="home"> 家飲み</label>
+    <label><input type="radio" name="scene" value="light"> 軽い飲み会</label>
+    <label><input type="radio" name="scene" value="party" checked> 飲み会モード</label>
+  </div>
+  <button onclick="startQuiz()">診断スタート</button>
+</div>
+
+<!-- 🔹診断本体 -->
+<div id="quiz" style="display:none;">
   <form id="altiForm">
     <div class="question"><p>1. お酒を飲んで10分以内に顔が赤くなることがある。</p>
       <label><input type="radio" name="q1" value="slow"> はい</label>
@@ -110,6 +100,7 @@
   </form>
 </div>
 
+<!-- 🔹診断結果 -->
 <div class="result" id="result">
   <h2 id="typeName"></h2>
   <img id="typeImg" src="" alt="診断結果画像">
@@ -118,19 +109,18 @@
   <p id="doseResult" class="desc"></p>
 
   <div id="intakeInput" class="fade-in">
-    <h3>今日の予定を入力（複数可）</h3>
+    <h3>実際に飲んだ杯数を入力</h3>
     <div class="drinkRow">🍺 ビール：<input type="number" id="beer" min="0" step="0.1" value="0"> 本　
     🍹 酎ハイ：<input type="number" id="chu" min="0" step="0.1" value="0"> 缶</div>
     <div class="drinkRow">🥃 ハイボール：<input type="number" id="high" min="0" step="0.1" value="0"> 杯　
     🍶 日本酒：<input type="number" id="sake" min="0" step="0.1" value="0"> 合　
     🟤 ウイスキー：<input type="number" id="whisky" min="0" step="0.1" value="0"> 杯</div>
-    <button type="button" onclick="calcTotalIntake()">合計で判定する</button>
+    <button type="button" onclick="calcTotalIntake()">判定する</button>
     <p id="intakeResult" class="desc"></p>
   </div>
 
   <p id="notice" class="desc" style="font-size:0.85em;color:#444;margin-top:20px;">
   ※ この診断と推奨値は一般的な目安であり、医学的助言を目的としたものではありません。<br>
-  体調・服薬・既往歴・年齢などにより安全な飲酒量は異なります。<br>
   飲酒はあくまで自己責任のもと、無理のない範囲で楽しみましょう。
   </p>
 
@@ -138,7 +128,19 @@
 </div>
 
 <script>
-const alcoholTable = {beer:20, chu:20, high:20, sake:22, whisky:19};
+const alcoholTable={beer:20,chu:20,high:20,sake:22,whisky:19};
+let modifiers={condition:1.0,scene:1.0};
+
+function startQuiz(){
+  const cond=document.querySelector('input[name="condition"]:checked')?.value;
+  const scene=document.querySelector('input[name="scene"]:checked')?.value;
+
+  modifiers.condition = cond==="good"?1.1 : cond==="tired"?0.8 : 1.0;
+  modifiers.scene = scene==="party"?1.2 : scene==="light"?1.1 : 1.0;
+
+  document.getElementById("preSetting").style.display="none";
+  document.getElementById("quiz").style.display="block";
+}
 
 function showResult(){
   const answers=document.querySelectorAll('input[type=radio]:checked');
@@ -150,10 +152,8 @@ function showResult(){
   window.lastMood=axis2;
 
   let base=axis1==="slow"?15:25;
-  let adj=axis2==="emo"?0.8:1.0;
-  const diff=Math.abs(score.slow-score.fast)+Math.abs(score.emo-score.cool);
-  if(diff>=6)base*=0.9;
-  const grams=Math.round(base*adj);
+  let adj=axis2==="emo"?0.85:1.0;
+  let grams=Math.round(base*adj*modifiers.condition*modifiers.scene);
   window.lastDose={grams};
 
   const data={
@@ -162,7 +162,6 @@ function showResult(){
     "fast-emo":{name:"⚡Fast-Emo（社交ターボ型）",img:"image/fast-emo.png",desc:"ノリの良さと瞬発力が魅力。",bg:"linear-gradient(135deg,#ffb300,#bbdefb)",quote:"『波は乗るもの、飲まれるものじゃない！』"},
     "slow-cool":{name:"🌿Slow-Cool（慎重ハイブリッド型）",img:"image/slow-cool.png",desc:"穏やかで安定したタイプ。",bg:"linear-gradient(135deg,#81c784,#e8f5e9)",quote:"『風に任せていい。ただし、根は忘れるな。』"}
   };
-
   const type=axis1+"-"+axis2;
   const info=data[type];
 
@@ -171,10 +170,7 @@ function showResult(){
   document.getElementById("typeImg").src=info.img;
   document.getElementById("typeDesc").textContent=info.desc;
   document.getElementById("standQuote").textContent=info.quote;
-
-  const beer=(grams/20).toFixed(1),chu=(grams/20).toFixed(1),high=(grams/20).toFixed(1),sake=(grams/22).toFixed(1),whisky=(grams/19).toFixed(1);
-  document.getElementById("doseResult").innerHTML=`推奨：純アルコール ${grams}g／日 程度<br>
-  🍺ビール:${beer}本 🍹酎ハイ:${chu}缶 🥃ハイボール:${high}杯<br>🍶日本酒:${sake}合 🟤ウイスキー:${whisky}杯`;
+  document.getElementById("doseResult").innerHTML=`推奨：純アルコール ${grams}g／日 程度`;
 
   document.getElementById("quiz").style.display="none";
   document.getElementById("result").style.display="block";
@@ -183,31 +179,29 @@ function showResult(){
 function calcTotalIntake(){
   let total=0;
   for(let key in alcoholTable){
-    const val=parseFloat(document.getElementById(key).value)||0;
-    total+=alcoholTable[key]*val;
+    total+=alcoholTable[key]*(parseFloat(document.getElementById(key).value)||0);
   }
-  const safe=window.lastDose?window.lastDose.grams:20;
+  const safe=window.lastDose.grams||20;
   const mood=window.lastMood||"cool";
   let msg="",color="";
   if(total<=safe){
-    msg=mood==="emo"?`🍀いいね。全体で ${total.toFixed(1)}g、理想的なペース！`:`🍀全体で ${total.toFixed(1)}g。安全範囲内です。`;
+    msg=mood==="emo"?`🍀ナイスコントロール！ 全体 ${total.toFixed(1)}g、安全圏！`:`🍀全体 ${total.toFixed(1)}g。理想的です。`;
     color="#2e7d32";
   }else if(total<=safe*1.5){
-    msg=mood==="emo"?`⚠️少し熱が入ってるね（${total.toFixed(1)}g）。今夜は余韻を残そう。`:`⚠️総量 ${total.toFixed(1)}g、やや超過。1杯減らせば理想的。`;
+    msg=mood==="emo"?`⚠️少し熱いね（${total.toFixed(1)}g）。明日は水を多めに。`:`⚠️${total.toFixed(1)}g、少し多め。休肝日を意識！`;
     color="#f9a825";
   }else{
-    msg=mood==="emo"?`🚫合計 ${total.toFixed(1)}g！少しブレーキを。体が悲鳴をあげる前に。`:`🚫合計 ${total.toFixed(1)}g。危険域です。今日は控えめに。`;
+    msg=mood==="emo"?`🚫合計 ${total.toFixed(1)}g！完全にオーバー。身体リミット超。`:`🚫${total.toFixed(1)}g。今日は撤退判断を！`;
     color="#c62828";
   }
   const out=document.getElementById("intakeResult");
-  out.style.color=color;
-  out.innerHTML=msg;
+  out.style.color=color; out.innerHTML=msg;
 }
 
 function restart(){
   document.body.style.background="#fafafa";
   document.getElementById("result").style.display="none";
-  document.getElementById("quiz").style.display="block";
+  document.getElementById("preSetting").style.display="block";
   document.querySelectorAll('input[type=radio]').forEach(el=>el.checked=false);
   ['beer','chu','high','sake','whisky'].forEach(id=>document.getElementById(id).value=0);
 }
@@ -216,6 +210,5 @@ if("serviceWorker" in navigator){
   navigator.serviceWorker.register("service-worker.js");
 }
 </script>
-
 </body>
 </html>
