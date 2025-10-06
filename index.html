@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>ALTI飲酒タイプ診断</title>
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#e53935">
+<meta name="theme-color" content="#0f2027">
+<link rel="apple-touch-icon" href="icons-192.png">
 <style>
 :root {
   --radius:14px;
@@ -296,6 +297,15 @@ function restart(){
   document.querySelectorAll('input[type=radio],input[type=checkbox]').forEach(el=>el.checked=false);
   ['beer','chu','high','sake','whisky'].forEach(id=>document.getElementById(id).value=0);
   document.getElementById("intakeInput").style.display="none";
+}
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('service-worker.js')
+    .then(reg => console.log('✅ ServiceWorker registered:', reg))
+    .catch(err => console.log('❌ SW registration failed:', err));
+  });
 }
 </script>
 </body>
