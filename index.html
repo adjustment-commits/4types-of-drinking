@@ -99,7 +99,38 @@ input{margin:4px;}
 
   <button onclick="restart()">もう一度診断する</button>
 </div>
+  
+<style>
+  /* ▼ 通常時背景 */
+  body.default-mode {
+    background: #fafafa;
+    transition: background 1s ease-in-out;
+  }
 
+  /* ▼ 飲み会モード背景（ネオン） */
+  body.party-mode {
+    background: linear-gradient(135deg, #ff4081, #7c4dff, #448aff);
+    background-size: 400% 400%;
+    animation: partyGlow 8s ease infinite;
+    color: #fff;
+  }
+
+  @keyframes partyGlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .neon-title {
+    text-shadow: 0 0 10px #fff, 0 0 20px #ff4081, 0 0 40px #ff4081;
+  }
+
+  .neon-border {
+    border: 2px solid rgba(255,255,255,0.3);
+    box-shadow: 0 0 10px rgba(255,255,255,0.3);
+  }
+</style>
+  
 <script>
 const baseDose = {
   "slow-emo": 30,
@@ -130,6 +161,16 @@ function showResult() {
   const cond = document.querySelector('input[name="condition"]:checked').value;
   const condRate = cond === "good" ? 1.2 : cond === "tired" ? 0.8 : 1.0;
   const modeRate = document.getElementById("partyMode").checked ? 1.5 : 1.0;
+  // パーティーモードON時の演出
+if (document.getElementById("partyMode").checked) {
+  document.body.classList.add("party-mode");
+  document.body.classList.remove("default-mode");
+  document.querySelector("h1").classList.add("neon-title");
+} else {
+  document.body.classList.remove("party-mode");
+  document.body.classList.add("default-mode");
+  document.querySelector("h1").classList.remove("neon-title");
+}
   const total = Math.round(baseDose[type] * condRate * modeRate);
 
   const beer = Math.ceil(total / 20);
