@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>ALTI飲酒タイプ診断 Ver.4.1</title>
+<title>ALTI飲酒タイプ診断 Ver.4.2</title>
 <style>
   :root {--ink:#111; --radius:12px; --shadow:0 2px 6px rgba(0,0,0,0.15);}
   body {
@@ -97,6 +97,13 @@
     <p id="intakeResult" class="desc"></p>
   </div>
 
+  <!-- 注意文 -->
+  <p id="notice" class="desc" style="font-size:0.85em;color:#444;margin-top:20px;">
+  ※ この診断と推奨値は一般的な目安であり、医学的助言を目的としたものではありません。<br>
+  体調・服薬・既往歴・年齢などにより安全な飲酒量は異なります。<br>
+  飲酒はあくまで自己責任のもと、無理のない範囲で楽しみましょう。
+  </p>
+
   <button onclick="restart()">もう一度診断する</button>
 </div>
 
@@ -112,7 +119,6 @@ function showResult(){
   const axis2=score.emo>score.cool?"emo":"cool";
   window.lastMood=axis2;
 
-  // 飲酒許容量算出
   let base=axis1==="slow"?15:25;
   let adj=axis2==="emo"?0.8:1.0;
   const diff=Math.abs(score.slow-score.fast)+Math.abs(score.emo-score.cool);
@@ -121,10 +127,10 @@ function showResult(){
   window.lastDose={grams};
 
   const data={
-    "slow-emo":{name:"🔥Slow-Emo（感情ジェット型）",img:"img/slow-emo.png",desc:"感情のスイッチが入りやすいタイプ。",bg:"linear-gradient(135deg,#f57c00,#ffe082)",quote:"『燃える瞬間は美しいが、燃え尽きるなよ。』"},
-    "fast-cool":{name:"❄️Fast-Cool（理性スプリント型）",img:"img/fast-cool.png",desc:"代謝が速く冷静さを保つタイプ。",bg:"linear-gradient(135deg,#4a6572,#cfd8dc)",quote:"『氷のように冷静でも、油断はひびを呼ぶ。』"},
-    "fast-emo":{name:"⚡Fast-Emo（社交ターボ型）",img:"img/fast-emo.png",desc:"ノリの良さと瞬発力が魅力。",bg:"linear-gradient(135deg,#ffb300,#bbdefb)",quote:"『波は乗るもの、飲まれるものじゃない！』"},
-    "slow-cool":{name:"🌿Slow-Cool（慎重ハイブリッド型）",img:"img/slow-cool.png",desc:"穏やかで安定したタイプ。",bg:"linear-gradient(135deg,#81c784,#e8f5e9)",quote:"『風に任せていい。ただし、根は忘れるな。』"}
+    "slow-emo":{name:"🔥Slow-Emo（感情ジェット型）",img:"iamge/slow-emo.png",desc:"感情のスイッチが入りやすいタイプ。",bg:"linear-gradient(135deg,#f57c00,#ffe082)",quote:"『燃える瞬間は美しいが、燃え尽きるなよ。』"},
+    "fast-cool":{name:"❄️Fast-Cool（理性スプリント型）",img:"iamge/fast-cool.png",desc:"代謝が速く冷静さを保つタイプ。",bg:"linear-gradient(135deg,#4a6572,#cfd8dc)",quote:"『氷のように冷静でも、油断はひびを呼ぶ。』"},
+    "fast-emo":{name:"⚡Fast-Emo（社交ターボ型）",img:"iamge/fast-emo.png",desc:"ノリの良さと瞬発力が魅力。",bg:"linear-gradient(135deg,#ffb300,#bbdefb)",quote:"『波は乗るもの、飲まれるものじゃない！』"},
+    "slow-cool":{name:"🌿Slow-Cool（慎重ハイブリッド型）",img:"iamge/slow-cool.png",desc:"穏やかで安定したタイプ。",bg:"linear-gradient(135deg,#81c784,#e8f5e9)",quote:"『風に任せていい。ただし、根は忘れるな。』"}
   };
   const type=axis1+"-"+axis2;
 
@@ -142,7 +148,6 @@ function showResult(){
   document.getElementById("result").style.display="block";
 }
 
-// 複数酒種合計
 function calcTotalIntake(){
   let total=0;
   for(let key in alcoholTable){
