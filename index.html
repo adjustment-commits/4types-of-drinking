@@ -33,15 +33,40 @@
     background:rgba(0,0,0,0.25);padding:8px 10px;border-radius:8px;display:inline-block;
   }
   #intakeInput{margin-top:20px;background:rgba(255,255,255,0.85);padding:14px;border-radius:12px;}
-  .drinkRow {
-    display:flex;justify-content:space-between;align-items:center;
-    background:#fff;border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,0.08);
-    padding:8px 12px;margin:6px 0;font-size:1em;white-space:nowrap;
-  }
-  .drinkRow input {
-    width:60px;text-align:right;border:1px solid #ccc;border-radius:6px;
-    padding:5px;font-size:1em;margin-left:6px;
-  }
+
+.drinkRow {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr 0.6fr;
+  align-items: center;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  padding: 8px 10px;
+  margin: 6px 0;
+  font-size: 1em;
+}
+
+.drinkRow span.label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.drinkRow input {
+  width: 100%;
+  text-align: right;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 5px;
+  font-size: 1em;
+}
+
+.drinkRow .unit {
+  text-align: left;
+  font-size: 0.95em;
+  color: #333;
+}
+      
   #intakeInput h3 {text-align:center;margin-bottom:10px;}
   .fade-in{opacity:0;transform:translateY(8px);animation:fadeUp 1.2s ease forwards;}
   @keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
@@ -128,11 +153,11 @@
       目安：ビール500ml=20g ／ 酎ハイ350ml=20g ／ ハイボール=20g ／ 日本酒1合=22g ／ ウイスキー1杯=19g
     </p>
 
-    <div class="drinkRow">🍺 ビール<input type="number" id="beer" min="0" step="1" value="0"><span>本</span></div>
-    <div class="drinkRow">🍹 酎ハイ<input type="number" id="chu" min="0" step="1" value="0"><span>缶</span></div>
-    <div class="drinkRow">🥃 ハイボール<input type="number" id="high" min="0" step="1" value="0"><span>杯</span></div>
-    <div class="drinkRow">🍶 日本酒<input type="number" id="sake" min="0" step="1" value="0"><span>合</span></div>
-    <div class="drinkRow">🟤 ウイスキー<input type="number" id="whisky" min="0" step="1" value="0"><span>杯</span></div>
+<div class="drinkRow"><span class="label">🍺 ビール</span><input type="number" id="beer" min="0" step="1" value="0"><span class="unit">本</span></div>
+<div class="drinkRow"><span class="label">🍹 酎ハイ</span><input type="number" id="chu" min="0" step="1" value="0"><span class="unit">缶</span></div>
+<div class="drinkRow"><span class="label">🥃 ハイボール</span><input type="number" id="high" min="0" step="1" value="0"><span class="unit">杯</span></div>
+<div class="drinkRow"><span class="label">🍶 日本酒</span><input type="number" id="sake" min="0" step="1" value="0"><span class="unit">合</span></div>
+<div class="drinkRow"><span class="label">🟤 ウイスキー</span><input type="number" id="whisky" min="0" step="1" value="0"><span class="unit">杯</span></div>
 
     <button type="button" onclick="calcTotalIntake()">合計で判定する</button>
     <p id="intakeResult" class="desc"></p>
