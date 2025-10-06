@@ -36,7 +36,7 @@
 
 .drinkRow {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 0.6fr;
+  grid-template-columns: 1.6fr 1fr 0.4fr; /* ←ここで右列を少し狭く */
   align-items: center;
   background: #fff;
   border-radius: 10px;
@@ -44,7 +44,7 @@
   padding: 6px 10px;
   margin: 6px 0;
   font-size: 1em;
-  column-gap: 6px;
+  column-gap: 8px; /* 入力と単位の間を広げる */
 }
 
 .drinkRow span.label {
@@ -60,10 +60,17 @@
   text-align: right;
   border: 1px solid #ccc;
   border-radius: 6px;
-  padding: 4px 6px;
+  padding: 6px 8px;
   font-size: 1em;
+  height: 34px; /* 高さを統一 */
 }
 
+.drinkRow .unit {
+  text-align: left;
+  font-size: 0.95em;
+  color: #333;
+  white-space: nowrap;
+}
 .drinkRow .unit {
   text-align: left;
   font-size: 0.95em;
