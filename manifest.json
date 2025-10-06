@@ -1,10 +1,11 @@
 {
   "name": "ALTI飲酒タイプ診断",
-  "short_name": "ALTI診断",
+  "short_name": "ALTI飲酒診断",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#fafafa",
+  "background_color": "#e53935",
   "theme_color": "#e53935",
+  "description": "体質・気分・体調・シーンから最適な飲酒量を導くALTI飲酒タイプ診断",
   "icons": [
     {
       "src": "./image/icon-192.png",
@@ -16,5 +17,14 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ]
+  ],
+  "screenshots": [
+    {
+      "src": "./image/splash-1170x2532.png",
+      "sizes": "1170x2532",
+      "type": "image/png"
+    }
+  ],
+  "orientation": "portrait-primary",
+  "scope": "./"
 }
