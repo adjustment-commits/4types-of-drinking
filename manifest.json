@@ -1,3 +1,4 @@
+
 {
   "name": "ALTI飲酒タイプ診断",
   "short_name": "ALTI診断",
@@ -8,12 +9,12 @@
   "description": "あなたの飲酒タイプを診断し、安全な飲み方を提案するアプリ",
   "icons": [
     {
-      "src": "icons-192.png",
+      "src": "icon-192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "icons-512.png",
+      "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
