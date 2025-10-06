@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>ALTI飲酒タイプ診断 Ver.4.2</title>
+<title>ALTI飲酒タイプ診断</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#e53935">
 <style>
   :root {--ink:#111; --radius:12px; --shadow:0 2px 6px rgba(0,0,0,0.15);}
   body {
@@ -43,7 +45,7 @@
 
 <div id="quiz">
   <form id="altiForm">
-    <!-- 10問 -->
+    <!-- 質問群 -->
     <div class="question"><p>1. お酒を飲んで10分以内に顔が赤くなることがある。</p>
       <label><input type="radio" name="q1" value="slow"> はい</label>
       <label><input type="radio" name="q1" value="fast"> いいえ</label></div>
@@ -127,10 +129,10 @@ function showResult(){
   window.lastDose={grams};
 
   const data={
-    "slow-emo":{name:"🔥Slow-Emo（感情ジェット型）",img:"iamge/slow-emo.png",desc:"感情のスイッチが入りやすいタイプ。",bg:"linear-gradient(135deg,#f57c00,#ffe082)",quote:"『燃える瞬間は美しいが、燃え尽きるなよ。』"},
-    "fast-cool":{name:"❄️Fast-Cool（理性スプリント型）",img:"iamge/fast-cool.png",desc:"代謝が速く冷静さを保つタイプ。",bg:"linear-gradient(135deg,#4a6572,#cfd8dc)",quote:"『氷のように冷静でも、油断はひびを呼ぶ。』"},
-    "fast-emo":{name:"⚡Fast-Emo（社交ターボ型）",img:"iamge/fast-emo.png",desc:"ノリの良さと瞬発力が魅力。",bg:"linear-gradient(135deg,#ffb300,#bbdefb)",quote:"『波は乗るもの、飲まれるものじゃない！』"},
-    "slow-cool":{name:"🌿Slow-Cool（慎重ハイブリッド型）",img:"iamge/slow-cool.png",desc:"穏やかで安定したタイプ。",bg:"linear-gradient(135deg,#81c784,#e8f5e9)",quote:"『風に任せていい。ただし、根は忘れるな。』"}
+    "slow-emo":{name:"🔥Slow-Emo（感情ジェット型）",img:"img/slow-emo.png",desc:"感情のスイッチが入りやすいタイプ。",bg:"linear-gradient(135deg,#f57c00,#ffe082)",quote:"『燃える瞬間は美しいが、燃え尽きるなよ。』"},
+    "fast-cool":{name:"❄️Fast-Cool（理性スプリント型）",img:"img/fast-cool.png",desc:"代謝が速く冷静さを保つタイプ。",bg:"linear-gradient(135deg,#4a6572,#cfd8dc)",quote:"『氷のように冷静でも、油断はひびを呼ぶ。』"},
+    "fast-emo":{name:"⚡Fast-Emo（社交ターボ型）",img:"img/fast-emo.png",desc:"ノリの良さと瞬発力が魅力。",bg:"linear-gradient(135deg,#ffb300,#bbdefb)",quote:"『波は乗るもの、飲まれるものじゃない！』"},
+    "slow-cool":{name:"🌿Slow-Cool（慎重ハイブリッド型）",img:"img/slow-cool.png",desc:"穏やかで安定したタイプ。",bg:"linear-gradient(135deg,#81c784,#e8f5e9)",quote:"『風に任せていい。ただし、根は忘れるな。』"}
   };
   const type=axis1+"-"+axis2;
 
@@ -178,6 +180,11 @@ function restart(){
   document.getElementById("quiz").style.display="block";
   document.querySelectorAll('input[type=radio]').forEach(el=>el.checked=false);
   ['beer','chu','high','sake','whisky'].forEach(id=>document.getElementById(id).value=0);
+}
+
+// PWA登録
+if("serviceWorker" in navigator){
+  navigator.serviceWorker.register("service-worker.js");
 }
 </script>
 
