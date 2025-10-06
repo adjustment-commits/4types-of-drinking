@@ -34,6 +34,20 @@
   }
   #intakeInput{margin-top:20px;background:rgba(255,255,255,0.85);padding:14px;border-radius:12px;}
 
+ .drink-note {
+  text-align: center;
+  font-size: 0.9em;
+  color: #555;
+  margin: 6px 0 10px;
+  white-space: nowrap;  /* 改行を防止 */
+  overflow: hidden;
+  text-overflow: ellipsis; /* スマホで狭いときは末尾を「…」に */
+}
+
+@media (max-width: 480px) {
+  .drink-note { font-size: 0.8em; }
+}     
+      
 .drinkRow {
   display: grid;
   grid-template-columns: 1.6fr 1fr 0.4fr; /* ←ここで右列を少し狭く */
@@ -159,19 +173,29 @@
   <p id="doseResult" class="desc"></p>
 
   <div id="intakeInput" class="fade-in">
-    <h3>🥂 今日の予定を入力してみよう</h3>
-    <p style="font-size:0.9em;color:#555;margin-bottom:8px;">
-      目安：ビール500ml=20g ／ 酎ハイ350ml=20g ／ ハイボール=20g ／ 日本酒1合=22g ／ ウイスキー1杯=19g
-    </p>
+   <h3>🥂 今日の予定を入力してみよう</h3>
 
-<div class="drinkRow"><span class="label">🍺 ビール</span><input type="number" id="beer" min="0" step="1" value="0"><span class="unit">本</span></div>
-<div class="drinkRow"><span class="label">🍹 酎ハイ</span><input type="number" id="chu" min="0" step="1" value="0"><span class="unit">缶</span></div>
-<div class="drinkRow"><span class="label">🥃 ハイボール</span><input type="number" id="high" min="0" step="1" value="0"><span class="unit">杯</span></div>
-<div class="drinkRow"><span class="label">🍶 日本酒</span><input type="number" id="sake" min="0" step="1" value="0"><span class="unit">合</span></div>
-<div class="drinkRow"><span class="label">🟤 ウイスキー</span><input type="number" id="whisky" min="0" step="1" value="0"><span class="unit">杯</span></div>
+<p class="drink-note">
+  目安：🍺ビール500ml＝20g ／ 🍹酎ハイ350ml＝20g ／ 🥃ハイボール＝20g ／ 🍶日本酒1合＝22g ／ 🟤ウイスキー1杯＝19g
+</p>
 
-    <button type="button" onclick="calcTotalIntake()">合計で判定する</button>
-    <p id="intakeResult" class="desc"></p>
+<div class="drinkRow">🍺 ビール：
+  <input type="number" id="beer" min="0" step="0.1" value="0"> 本　
+</div>
+<div class="drinkRow">🍹 酎ハイ：
+  <input type="number" id="chu" min="0" step="0.1" value="0"> 缶　
+</div>
+<div class="drinkRow">🥃 ハイボール：
+  <input type="number" id="high" min="0" step="0.1" value="0"> 杯　
+</div>
+<div class="drinkRow">🍶 日本酒：
+  <input type="number" id="sake" min="0" step="0.1" value="0"> 合　
+</div>
+<div class="drinkRow">🟤 ウイスキー：
+  <input type="number" id="whisky" min="0" step="0.1" value="0"> 杯
+</div>
+<button type="button" onclick="calcTotalIntake()">合計で判定する</button>
+<p id="intakeResult" class="desc"></p>
   </div>
 
   <button onclick="restart()">もう一度診断する</button>
