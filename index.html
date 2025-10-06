@@ -6,13 +6,14 @@
 <title>ALTI飲酒タイプ診断</title>
 <style>
   :root {
-    --bg:#fafafa; --accent:#e53935; --ink:#222;
+    --accent:#e53935; --ink:#222;
     --radius:12px; --shadow:0 2px 6px rgba(0,0,0,0.15);
   }
   body {
     font-family:-apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
-    background:var(--bg); color:var(--ink);
+    color:var(--ink);
     margin:0; padding:20px; max-width:640px; margin:auto;
+    transition: background 1s ease-in-out;
   }
   h1{text-align:center; font-size:1.6em; margin:10px 0 20px;}
   .question{margin:18px 0;}
@@ -32,51 +33,48 @@
 
 <div id="quiz">
   <form id="altiForm">
+    <!-- 質問は前回と同じ（10問） -->
+    <div class="question"><p>1. お酒を飲んで10分以内に顔が赤くなることがある。</p>
+      <label><input type="radio" name="q1" value="slow"> はい</label>
+      <label><input type="radio" name="q1" value="fast"> いいえ</label></div>
 
-  <!-- 生理・代謝系 -->
-  <div class="question"><p>1. お酒を飲んで10分以内に顔が赤くなることがある。</p>
-    <label><input type="radio" name="q1" value="slow"> はい</label>
-    <label><input type="radio" name="q1" value="fast"> いいえ</label></div>
+    <div class="question"><p>2. ビール1杯でも動悸や息苦しさを感じることがある。</p>
+      <label><input type="radio" name="q2" value="slow"> はい</label>
+      <label><input type="radio" name="q2" value="fast"> いいえ</label></div>
 
-  <div class="question"><p>2. ビール1杯でも動悸や息苦しさを感じることがある。</p>
-    <label><input type="radio" name="q2" value="slow"> はい</label>
-    <label><input type="radio" name="q2" value="fast"> いいえ</label></div>
+    <div class="question"><p>3. 少量でも体が熱くなり、手足がほてる。</p>
+      <label><input type="radio" name="q3" value="slow"> はい</label>
+      <label><input type="radio" name="q3" value="fast"> いいえ</label></div>
 
-  <div class="question"><p>3. 少量でも体が熱くなり、手足がほてる。</p>
-    <label><input type="radio" name="q3" value="slow"> はい</label>
-    <label><input type="radio" name="q3" value="fast"> いいえ</label></div>
+    <div class="question"><p>4. 翌朝、頭痛や倦怠感が残ることが多い。</p>
+      <label><input type="radio" name="q4" value="slow"> はい</label>
+      <label><input type="radio" name="q4" value="fast"> いいえ</label></div>
 
-  <!-- 回復・耐性系 -->
-  <div class="question"><p>4. 翌朝、頭痛や倦怠感が残ることが多い。</p>
-    <label><input type="radio" name="q4" value="slow"> はい</label>
-    <label><input type="radio" name="q4" value="fast"> いいえ</label></div>
+    <div class="question"><p>5. お酒を飲んだ夜は眠りが浅くなりやすい。</p>
+      <label><input type="radio" name="q5" value="slow"> はい</label>
+      <label><input type="radio" name="q5" value="fast"> いいえ</label></div>
 
-  <div class="question"><p>5. お酒を飲んだ夜は眠りが浅くなりやすい。</p>
-    <label><input type="radio" name="q5" value="slow"> はい</label>
-    <label><input type="radio" name="q5" value="fast"> いいえ</label></div>
+    <div class="question"><p>6. お酒を飲んだ翌日、集中力が落ちる。</p>
+      <label><input type="radio" name="q6" value="slow"> はい</label>
+      <label><input type="radio" name="q6" value="fast"> いいえ</label></div>
 
-  <div class="question"><p>6. お酒を飲んだ翌日、集中力が落ちる。</p>
-    <label><input type="radio" name="q6" value="slow"> はい</label>
-    <label><input type="radio" name="q6" value="fast"> いいえ</label></div>
+    <div class="question"><p>7. 周りのテンションに引っ張られやすい。</p>
+      <label><input type="radio" name="q7" value="emo"> はい</label>
+      <label><input type="radio" name="q7" value="cool"> いいえ</label></div>
 
-  <!-- 心理・感情系 -->
-  <div class="question"><p>7. 周りのテンションに引っ張られやすい。</p>
-    <label><input type="radio" name="q7" value="emo"> はい</label>
-    <label><input type="radio" name="q7" value="cool"> いいえ</label></div>
+    <div class="question"><p>8. 断るよりも「少しだけ飲もう」と思ってしまう。</p>
+      <label><input type="radio" name="q8" value="emo"> はい</label>
+      <label><input type="radio" name="q8" value="cool"> いいえ</label></div>
 
-  <div class="question"><p>8. 断るよりも「少しだけ飲もう」と思ってしまう。</p>
-    <label><input type="radio" name="q8" value="emo"> はい</label>
-    <label><input type="radio" name="q8" value="cool"> いいえ</label></div>
+    <div class="question"><p>9. 飲み会では静かよりも盛り上がっていたい。</p>
+      <label><input type="radio" name="q9" value="emo"> はい</label>
+      <label><input type="radio" name="q9" value="cool"> いいえ</label></div>
 
-  <div class="question"><p>9. 飲み会では静かよりも盛り上がっていたい。</p>
-    <label><input type="radio" name="q9" value="emo"> はい</label>
-    <label><input type="radio" name="q9" value="cool"> いいえ</label></div>
+    <div class="question"><p>10. お酒を飲むと気分が高揚しやすい。</p>
+      <label><input type="radio" name="q10" value="emo"> はい</label>
+      <label><input type="radio" name="q10" value="cool"> いいえ</label></div>
 
-  <div class="question"><p>10. お酒を飲むと気分が高揚しやすい。</p>
-    <label><input type="radio" name="q10" value="emo"> はい</label>
-    <label><input type="radio" name="q10" value="cool"> いいえ</label></div>
-
-  <button type="button" onclick="showResult()">診断する</button>
+    <button type="button" onclick="showResult()">診断する</button>
   </form>
 </div>
 
@@ -103,25 +101,30 @@ function showResult(){
     "slow-emo": {
       name:"🔥Slow-Emo（感情ジェット型）",
       img:"img/slow-emo.png",
-      desc:"感情のスイッチが入りやすく、雰囲気に共鳴しやすいタイプ。飲酒中の幸福感は強いが、翌日の反動も大きい。水分補給と食事を意識しよう。"
+      desc:"感情のスイッチが入りやすく、雰囲気に共鳴しやすいタイプ。飲酒中の幸福感は強いが、翌日の反動も大きい。水分補給と食事を意識しよう。",
+      bg:"linear-gradient(135deg,#ff7043,#ffca28)"
     },
     "fast-cool": {
       name:"❄️Fast-Cool（理性スプリント型）",
       img:"img/fast-cool.png",
-      desc:"代謝が速く、酔っても冷静さを保つタイプ。飲んで乱れにくいが、肝臓に負担が蓄積しやすい。休肝日を設けるのが鍵。"
+      desc:"代謝が速く、酔っても冷静さを保つタイプ。飲んで乱れにくいが、肝臓に負担が蓄積しやすい。休肝日を設けるのが鍵。",
+      bg:"linear-gradient(135deg,#1e3c72,#2a5298)"
     },
     "fast-emo": {
       name:"⚡Fast-Emo（社交ターボ型）",
       img:"img/fast-emo.png",
-      desc:"ノリの良さと瞬発力が魅力。飲みの場を盛り上げる中心的存在。ただし勢いで飲み過ぎに注意。テンションの切り替えを大事に。"
+      desc:"ノリの良さと瞬発力が魅力。飲みの場を盛り上げる中心的存在。ただし勢いで飲み過ぎに注意。テンションの切り替えを大事に。",
+      bg:"linear-gradient(135deg,#ff9800,#64b5f6)"
     },
     "slow-cool": {
       name:"🌿Slow-Cool（慎重ハイブリッド型）",
       img:"img/slow-cool.png",
-      desc:"穏やかで安定したタイプ。少量で十分に楽しめる。無理せず自分のペースを守る姿勢が、長く健康を保つ秘訣。"
+      desc:"穏やかで安定したタイプ。少量で十分に楽しめる。無理せず自分のペースを守る姿勢が、長く健康を保つ秘訣。",
+      bg:"linear-gradient(135deg,#81c784,#dcedc8)"
     }
   };
 
+  document.body.style.background = data[type].bg;
   document.getElementById("typeName").textContent = data[type].name;
   document.getElementById("typeImg").src = data[type].img;
   document.getElementById("typeDesc").textContent = data[type].desc;
@@ -130,6 +133,7 @@ function showResult(){
 }
 
 function restart(){
+  document.body.style.background = "#fafafa";
   document.getElementById("result").style.display="none";
   document.getElementById("quiz").style.display="block";
   document.querySelectorAll('input[type=radio]').forEach(el=>el.checked=false);
