@@ -6,26 +6,24 @@
 <title>ALTI飲酒タイプ診断</title>
 <style>
   :root {
-    --bg:#fafafa; --accent:#f66; --ink:#222;
+    --bg:#fafafa; --accent:#e53935; --ink:#222;
     --radius:12px; --shadow:0 2px 6px rgba(0,0,0,0.15);
   }
   body {
     font-family:-apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
     background:var(--bg); color:var(--ink);
-    margin:0; padding:20px; max-width:600px; margin:auto;
+    margin:0; padding:20px; max-width:640px; margin:auto;
   }
   h1{text-align:center; font-size:1.6em; margin:10px 0 20px;}
+  .question{margin:18px 0;}
   button{
-    display:block; width:100%; padding:12px; margin:10px 0;
+    display:block; width:100%; padding:12px; margin:15px 0;
     border:none; border-radius:var(--radius); font-size:1em;
     background:var(--accent); color:#fff; box-shadow:var(--shadow);
   }
-  .question{margin:20px 0;}
-  .result{
-    text-align:center; display:none;
-  }
-  img{width:100%; max-width:300px;}
-  .desc{margin-top:10px; font-size:0.95em;}
+  .result{text-align:center; display:none;}
+  img{width:100%; max-width:320px; border-radius:10px;}
+  .desc{margin-top:10px; font-size:0.95em; line-height:1.6;}
 </style>
 </head>
 <body>
@@ -33,17 +31,53 @@
 <h1>ALTI飲酒タイプ診断</h1>
 
 <div id="quiz">
-  <div class="question">
-    <p>1. お酒を飲むと顔が赤くなりやすい？</p>
-    <label><input type="radio" name="q1" value="slow">はい</label>
-    <label><input type="radio" name="q1" value="fast">いいえ</label>
-  </div>
-  <div class="question">
-    <p>2. 場の雰囲気でテンションが上がりやすい？</p>
-    <label><input type="radio" name="q2" value="emo">はい</label>
-    <label><input type="radio" name="q2" value="cool">いいえ</label>
-  </div>
-  <button onclick="showResult()">診断する</button>
+  <form id="altiForm">
+
+  <!-- 生理・代謝系 -->
+  <div class="question"><p>1. お酒を飲んで10分以内に顔が赤くなることがある。</p>
+    <label><input type="radio" name="q1" value="slow"> はい</label>
+    <label><input type="radio" name="q1" value="fast"> いいえ</label></div>
+
+  <div class="question"><p>2. ビール1杯でも動悸や息苦しさを感じることがある。</p>
+    <label><input type="radio" name="q2" value="slow"> はい</label>
+    <label><input type="radio" name="q2" value="fast"> いいえ</label></div>
+
+  <div class="question"><p>3. 少量でも体が熱くなり、手足がほてる。</p>
+    <label><input type="radio" name="q3" value="slow"> はい</label>
+    <label><input type="radio" name="q3" value="fast"> いいえ</label></div>
+
+  <!-- 回復・耐性系 -->
+  <div class="question"><p>4. 翌朝、頭痛や倦怠感が残ることが多い。</p>
+    <label><input type="radio" name="q4" value="slow"> はい</label>
+    <label><input type="radio" name="q4" value="fast"> いいえ</label></div>
+
+  <div class="question"><p>5. お酒を飲んだ夜は眠りが浅くなりやすい。</p>
+    <label><input type="radio" name="q5" value="slow"> はい</label>
+    <label><input type="radio" name="q5" value="fast"> いいえ</label></div>
+
+  <div class="question"><p>6. お酒を飲んだ翌日、集中力が落ちる。</p>
+    <label><input type="radio" name="q6" value="slow"> はい</label>
+    <label><input type="radio" name="q6" value="fast"> いいえ</label></div>
+
+  <!-- 心理・感情系 -->
+  <div class="question"><p>7. 周りのテンションに引っ張られやすい。</p>
+    <label><input type="radio" name="q7" value="emo"> はい</label>
+    <label><input type="radio" name="q7" value="cool"> いいえ</label></div>
+
+  <div class="question"><p>8. 断るよりも「少しだけ飲もう」と思ってしまう。</p>
+    <label><input type="radio" name="q8" value="emo"> はい</label>
+    <label><input type="radio" name="q8" value="cool"> いいえ</label></div>
+
+  <div class="question"><p>9. 飲み会では静かよりも盛り上がっていたい。</p>
+    <label><input type="radio" name="q9" value="emo"> はい</label>
+    <label><input type="radio" name="q9" value="cool"> いいえ</label></div>
+
+  <div class="question"><p>10. お酒を飲むと気分が高揚しやすい。</p>
+    <label><input type="radio" name="q10" value="emo"> はい</label>
+    <label><input type="radio" name="q10" value="cool"> いいえ</label></div>
+
+  <button type="button" onclick="showResult()">診断する</button>
+  </form>
 </div>
 
 <div class="result" id="result">
@@ -55,36 +89,36 @@
 
 <script>
 function showResult(){
-  const q1 = document.querySelector('input[name="q1"]:checked');
-  const q2 = document.querySelector('input[name="q2"]:checked');
-  if(!q1 || !q2){alert("全ての質問に答えてください");return;}
+  const answers = document.querySelectorAll('input[type=radio]:checked');
+  if(answers.length < 10){alert("すべての質問に答えてください");return;}
 
-  let type = "";
-  if(q1.value==="slow" && q2.value==="emo") type="slow-emo";
-  if(q1.value==="fast" && q2.value==="cool") type="fast-cool";
-  if(q1.value==="fast" && q2.value==="emo") type="fast-emo";
-  if(q1.value==="slow" && q2.value==="cool") type="slow-cool";
+  let score = {slow:0, fast:0, emo:0, cool:0};
+  answers.forEach(a => score[a.value]++);
+
+  const axis1 = score.slow > score.fast ? "slow" : "fast";
+  const axis2 = score.emo > score.cool ? "emo" : "cool";
+  const type = axis1 + "-" + axis2;
 
   const data = {
     "slow-emo": {
       name:"🔥Slow-Emo（感情ジェット型）",
       img:"img/slow-emo.png",
-      desc:"情熱的で感情のスイッチが入りやすいタイプ。飲むと一気に盛り上がるが、翌日はダメージも大きい。"
+      desc:"感情のスイッチが入りやすく、雰囲気に共鳴しやすいタイプ。飲酒中の幸福感は強いが、翌日の反動も大きい。水分補給と食事を意識しよう。"
     },
     "fast-cool": {
       name:"❄️Fast-Cool（理性スプリント型）",
       img:"img/fast-cool.png",
-      desc:"理性的で制御力が高いタイプ。飲んでも乱れにくいが、知らずに肝臓を酷使することも。"
+      desc:"代謝が速く、酔っても冷静さを保つタイプ。飲んで乱れにくいが、肝臓に負担が蓄積しやすい。休肝日を設けるのが鍵。"
     },
     "fast-emo": {
       name:"⚡Fast-Emo（社交ターボ型）",
       img:"img/fast-emo.png",
-      desc:"場のエネルギーを吸収するタイプ。飲み会の中心になりやすく、テンション管理が鍵。"
+      desc:"ノリの良さと瞬発力が魅力。飲みの場を盛り上げる中心的存在。ただし勢いで飲み過ぎに注意。テンションの切り替えを大事に。"
     },
     "slow-cool": {
       name:"🌿Slow-Cool（慎重ハイブリッド型）",
       img:"img/slow-cool.png",
-      desc:"穏やかでマイペース。飲み方が丁寧で周囲を安心させるが、少量でも無理は禁物。"
+      desc:"穏やかで安定したタイプ。少量で十分に楽しめる。無理せず自分のペースを守る姿勢が、長く健康を保つ秘訣。"
     }
   };
 
