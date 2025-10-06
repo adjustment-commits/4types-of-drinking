@@ -64,17 +64,45 @@
   #intakeInput {margin-top:20px; background:rgba(255,255,255,0.08); padding:12px; border-radius:10px;}
   input[type="number"] {width:60px; text-align:center; border-radius:6px; border:none; padding:4px;}
 
-  .drinkRow {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    margin: 8px 0;
-  }
-  .drinkRow span.label {flex: 1; text-align: left; white-space: nowrap;}
-  .drinkRow input {flex: 0 0 70px; text-align: center; border-radius: 6px; border: none; padding: 5px;}
-  .drinkRow span.unit {flex: 0 0 30px; text-align: left;}
+  #intakeInput{max-width:560px;width:100%;}
 
+.drinkRow{
+  display:grid;
+  grid-template-columns: minmax(220px,1fr) 80px 28px;
+  align-items:center;
+  gap:10px;
+  margin:10px 0;
+}
+
+.drinkRow .label{
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.drinkRow input[type=number]{
+  width:100%;
+  height:40px;
+  text-align:center;
+  border-radius:8px;
+  border:1px solid rgba(0,0,0,.15);
+  background:rgba(255,255,255,.9);
+  color:#111;
+}
+
+.drinkRow .unit{
+  text-align:left;
+  opacity:.85;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0; }
+input[type="number"]{ -moz-appearance:textfield; }
+
+@media (max-width:480px){
+  .drinkRow{ grid-template-columns: minmax(150px,1fr) 68px 24px; gap:8px; }
+  .drinkRow .label{ font-size:.95em; }
+}
   .fade-in {opacity:0; transform:translateY(8px); animation:fadeUp 1.2s ease forwards;}
   @keyframes fadeUp{to{opacity:1; transform:translateY(0);}}
   @keyframes gradientShift {0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
