@@ -1,1 +1,106 @@
-# 4types-of-drinking
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ALTI飲酒タイプ診断</title>
+<style>
+  :root {
+    --bg:#fafafa; --accent:#f66; --ink:#222;
+    --radius:12px; --shadow:0 2px 6px rgba(0,0,0,0.15);
+  }
+  body {
+    font-family:-apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+    background:var(--bg); color:var(--ink);
+    margin:0; padding:20px; max-width:600px; margin:auto;
+  }
+  h1{text-align:center; font-size:1.6em; margin:10px 0 20px;}
+  button{
+    display:block; width:100%; padding:12px; margin:10px 0;
+    border:none; border-radius:var(--radius); font-size:1em;
+    background:var(--accent); color:#fff; box-shadow:var(--shadow);
+  }
+  .question{margin:20px 0;}
+  .result{
+    text-align:center; display:none;
+  }
+  img{width:100%; max-width:300px;}
+  .desc{margin-top:10px; font-size:0.95em;}
+</style>
+</head>
+<body>
+
+<h1>ALTI飲酒タイプ診断</h1>
+
+<div id="quiz">
+  <div class="question">
+    <p>1. お酒を飲むと顔が赤くなりやすい？</p>
+    <label><input type="radio" name="q1" value="slow">はい</label>
+    <label><input type="radio" name="q1" value="fast">いいえ</label>
+  </div>
+  <div class="question">
+    <p>2. 場の雰囲気でテンションが上がりやすい？</p>
+    <label><input type="radio" name="q2" value="emo">はい</label>
+    <label><input type="radio" name="q2" value="cool">いいえ</label>
+  </div>
+  <button onclick="showResult()">診断する</button>
+</div>
+
+<div class="result" id="result">
+  <h2 id="typeName"></h2>
+  <img id="typeImg" src="" alt="">
+  <p class="desc" id="typeDesc"></p>
+  <button onclick="restart()">もう一度診断する</button>
+</div>
+
+<script>
+function showResult(){
+  const q1 = document.querySelector('input[name="q1"]:checked');
+  const q2 = document.querySelector('input[name="q2"]:checked');
+  if(!q1 || !q2){alert("全ての質問に答えてください");return;}
+
+  let type = "";
+  if(q1.value==="slow" && q2.value==="emo") type="slow-emo";
+  if(q1.value==="fast" && q2.value==="cool") type="fast-cool";
+  if(q1.value==="fast" && q2.value==="emo") type="fast-emo";
+  if(q1.value==="slow" && q2.value==="cool") type="slow-cool";
+
+  const data = {
+    "slow-emo": {
+      name:"🔥Slow-Emo（感情ジェット型）",
+      img:"img/slow-emo.png",
+      desc:"情熱的で感情のスイッチが入りやすいタイプ。飲むと一気に盛り上がるが、翌日はダメージも大きい。"
+    },
+    "fast-cool": {
+      name:"❄️Fast-Cool（理性スプリント型）",
+      img:"img/fast-cool.png",
+      desc:"理性的で制御力が高いタイプ。飲んでも乱れにくいが、知らずに肝臓を酷使することも。"
+    },
+    "fast-emo": {
+      name:"⚡Fast-Emo（社交ターボ型）",
+      img:"img/fast-emo.png",
+      desc:"場のエネルギーを吸収するタイプ。飲み会の中心になりやすく、テンション管理が鍵。"
+    },
+    "slow-cool": {
+      name:"🌿Slow-Cool（慎重ハイブリッド型）",
+      img:"img/slow-cool.png",
+      desc:"穏やかでマイペース。飲み方が丁寧で周囲を安心させるが、少量でも無理は禁物。"
+    }
+  };
+
+  document.getElementById("typeName").textContent = data[type].name;
+  document.getElementById("typeImg").src = data[type].img;
+  document.getElementById("typeDesc").textContent = data[type].desc;
+  document.getElementById("quiz").style.display="none";
+  document.getElementById("result").style.display="block";
+}
+
+function restart(){
+  document.getElementById("result").style.display="none";
+  document.getElementById("quiz").style.display="block";
+  document.querySelectorAll('input[type=radio]').forEach(el=>el.checked=false);
+}
+</script>
+
+</body>
+</html>
