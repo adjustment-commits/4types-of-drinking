@@ -57,40 +57,41 @@ img {width:100%; max-width:320px; border-radius:10px;}
 .desc {margin-top:10px; font-size:0.95em; line-height:1.6;}
 #intakeInput{max-width:560px;width:100%;margin-top:20px;}
 .drinkRow {
-  display:grid;
-  grid-template-columns:minmax(180px,1fr) 65px 45px; /* ← 単位欄を広げた */
-  align-items:center;
-  gap:12px;
-  margin:10px 0;
+  display: grid;
+  grid-template-columns: minmax(160px, 1fr) 70px 40px; /* ← 少し余裕を持たせた */
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
 }
+
 .drinkRow input[type=number] {
-  width:100%;
-  height:38px;
-  line-height:38px; /* 数字を垂直中央 */
-  text-align:center;
-  border-radius:8px;
-  border:1px solid rgba(0,0,0,.15);
-  background:rgba(255,255,255,.9);
-  color:#111;
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.15);
+  background: rgba(255,255,255,0.9);
+  color: #111;
 }
-.drinkRow .label {
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
+
 .drinkRow .unit {
-  text-align:left;
-  opacity:.9;
-  font-weight:600;
-  font-size:1em;
-  padding-left:4px;
+  text-align: left;
+  opacity: 0.9;
+  font-weight: 600;
+  font-size: 1em;
+  padding-left: 2px;
 }
+
+/* スマホ用調整 */
 @media(max-width:480px){
-  .drinkRow{
-    grid-template-columns:minmax(130px,1fr)58px38px;
-    gap:8px;
+  .drinkRow {
+    grid-template-columns: minmax(140px, 1fr) 60px 40px; /* ← 単位側を広げた */
+    gap: 8px;
   }
-  .drinkRow .unit{font-size:0.9em;}
+  .drinkRow .label {
+    font-size: 0.95em;
+  }
 }
 
   width:100%;
