@@ -11,6 +11,8 @@
   --radius:14px;
   --shadow:0 6px 16px rgba(0,0,0,0.3);
 }
+
+/* 背景・基本スタイル */
 body {
   font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
   color:#fff;
@@ -24,6 +26,7 @@ body {
   align-items:center;
   min-height:100vh;
 }
+
 h1 {
   text-align:center;
   font-size:1.9em;
@@ -32,6 +35,8 @@ h1 {
   color:#ffd54f;
   text-shadow:0 2px 6px rgba(0,0,0,0.6);
 }
+
+/* 質問カード */
 .question, .option-group {
   background:rgba(255,255,255,0.1);
   border:1px solid rgba(255,255,255,0.2);
@@ -40,8 +45,11 @@ h1 {
   margin:12px 0;
   box-shadow:var(--shadow);
 }
+
 label {margin-right:12px; display:inline-block;}
 input[type="radio"], input[type="checkbox"], input[type="number"] {accent-color:#ffb300;}
+
+/* ボタン */
 button {
   display:block; width:100%; padding:14px;
   border:none; border-radius:12px; font-size:1.1em; font-weight:bold;
@@ -51,13 +59,18 @@ button {
   transition:transform 0.2s ease;
 }
 button:hover {transform:scale(1.03);}
+
+/* 結果画面 */
 .result {text-align:center; display:none;}
 img {width:100%; max-width:320px; border-radius:10px;}
 .desc {margin-top:10px; font-size:0.95em; line-height:1.6;}
 .stand-quote {background:rgba(0,0,0,0.3); padding:6px 10px; border-radius:8px; display:inline-block; margin-top:8px;}
+
+/* 飲酒入力欄 */
 #intakeInput {margin-top:20px; background:rgba(255,255,255,0.08); padding:12px; border-radius:10px;}
 input[type="number"] {width:60px; text-align:center; border-radius:6px; border:none; padding:4px;}
 #intakeInput{max-width:560px;width:100%;}
+
 .drinkRow{
   display:grid;
   grid-template-columns:minmax(220px,1fr) 80px 28px;
@@ -72,9 +85,59 @@ input[type="number"] {width:60px; text-align:center; border-radius:6px; border:n
   background:rgba(255,255,255,.9);color:#111;
 }
 .drinkRow .unit{text-align:left;opacity:.85;}
+
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
 input[type="number"]{-moz-appearance:textfield;}
+
+/* 結果ボックス（ゴールド発光） */
+.desc-box {
+  position: relative;
+  background: rgba(0,0,0,0.45);
+  border-radius: 14px;
+  padding: 20px 18px;
+  margin-top: 18px;
+  color: #fff;
+  line-height: 1.7;
+  font-size: 0.97em;
+  box-shadow:
+    0 0 12px rgba(212,175,55,0.25),
+    inset 0 0 18px rgba(212,175,55,0.15);
+  border: 1px solid rgba(212,175,55,0.5);
+  overflow: hidden;
+  transition: all 0.8s ease;
+}
+.desc-box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(
+    from 0deg,
+    rgba(255,215,128,0.15),
+    rgba(255,255,255,0.25),
+    rgba(255,215,128,0.15)
+  );
+  filter: blur(8px);
+  opacity: 0.5;
+  border-radius: inherit;
+  animation: goldPulse 6s linear infinite;
+  pointer-events: none;
+}
+@keyframes goldPulse {
+  0% { transform: rotate(0deg); opacity: 0.4; }
+  50% { opacity: 0.8; }
+  100% { transform: rotate(360deg); opacity: 0.4; }
+}
+/* 明るい背景用ボックス */
+.desc-box.bright {
+  background: rgba(255,255,255,0.75);
+  color: #111;
+  border: 1px solid rgba(212,175,55,0.6);
+  box-shadow:
+    0 0 8px rgba(255,255,255,0.4),
+    inset 0 0 12px rgba(255,255,255,0.2);
+}
+
 .fade-in{opacity:0;transform:translateY(8px);animation:fadeUp 1.2s ease forwards;}
 @keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
 @keyframes gradientShift{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
@@ -135,12 +198,16 @@ input[type="number"]{-moz-appearance:textfield;}
   </form>
 </div>
 
+<!-- 結果画面 -->
 <div class="result" id="result">
   <h2 id="typeName"></h2>
   <img id="typeImg" src="" alt="診断結果画像">
-  <p class="desc" id="typeDesc"></p>
-  <p class="stand-quote fade-in" id="standQuote"></p>
-  <p id="doseResult" class="desc"></p>
+
+  <div id="descBox" class="desc-box fade-in">
+    <p class="desc" id="typeDesc"></p>
+    <p class="stand-quote" id="standQuote"></p>
+    <p id="doseResult" class="desc"></p>
+  </div>
 
   <div id="intakeInput" class="fade-in">
     <h3>🍶 飲む予定を入力</h3>
@@ -194,14 +261,9 @@ function showResult(){
   const info=data[type];
   document.body.style.background=info.bg;
 
-  // 背景の明るさで文字色切替
   const brightBackgrounds=["slow-cool","fast-cool"];
-  const textColor=brightBackgrounds.includes(type)?"#111":"#fff";
-  document.body.style.color=textColor;
-  document.querySelectorAll("input, button, .desc, h3, label").forEach(el=>{
-    el.style.color=textColor;
-    el.style.backgroundColor=textColor==="#fff"?"rgba(0,0,0,0.2)":"rgba(255,255,255,0.3)";
-  });
+  const box=document.getElementById("descBox");
+  box.classList.toggle("bright",brightBackgrounds.includes(type));
 
   document.getElementById("typeName").textContent=info.name;
   document.getElementById("typeImg").src=info.img;
@@ -210,7 +272,7 @@ function showResult(){
 
   const beer=Math.round(grams/20),chu=Math.round(grams/20),high=Math.round(grams/20),sake=Math.round(grams/22),whisky=Math.round(grams/19);
   document.getElementById("doseResult").innerHTML=`推奨：純アルコール ${grams}g／日 程度<br>
-  🍺ビール:${beer}本 🍹酎ハイ:${chu}缶 🥃ハイボール:${high}杯<br>🍶日本酒:${sake}合 🟤ウイスキー:${whisky}杯`;
+   🍺ビール:${beer}本 🍹酎ハイ:${chu}缶 🥃ハイボール:${high}杯<br>🍶日本酒:${sake}合 🟤ウイスキー:${whisky}杯`;
 
   document.getElementById("quiz").style.display="none";
   document.getElementById("result").style.display="block";
@@ -249,6 +311,8 @@ function restart(){
   // 背景と配色を初期状態へ
   document.body.style.background="linear-gradient(135deg,#0f2027,#203a43,#2c5364)";
   document.body.style.color="#fff";
+  document.getElementById("descBox").classList.remove("bright");
+
   document.querySelectorAll("input, button, .desc, h3, label").forEach(el=>{
     el.style.color="#fff";
     el.style.backgroundColor="rgba(0,0,0,0.2)";
