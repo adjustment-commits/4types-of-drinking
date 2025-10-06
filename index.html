@@ -8,112 +8,133 @@
 <meta name="theme-color" content="#e53935">
 <link rel="apple-touch-icon" sizes="192x192" href="./image/icon-192.png">
 <link rel="apple-touch-icon" sizes="512x512" href="./image/icon-512.png">
-<link rel="apple-touch-startup-image" href="./image/splash-2048x2732.png">
-
+<link rel="apple-touch-startup-image" href="./image/splash-2048x2732.png" 
+      media="(device-width:1024px) and (device-height:1366px) and (-webkit-device-pixel-ratio:2)">
 <style>
-:root {
-  --ink:#111;
-  --radius:12px;
-  --shadow:0 2px 6px rgba(0,0,0,0.15);
-}
-body {
-  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
-  color:var(--ink);
-  background:#fafafa;
-  margin:0;
-  padding:20px;
-  max-width:640px;
-  margin:auto;
-  transition:background 1s ease-in-out,color 1s ease;
-}
-h1{text-align:center;font-size:1.7em;margin:10px 0 20px;}
-h2,h3{text-align:center;}
-.question{margin:18px 0;}
-button{
-  display:block;width:100%;padding:12px;margin:15px 0;
-  border:none;border-radius:var(--radius);font-size:1em;
-  background:#e53935;color:#fff;box-shadow:var(--shadow);cursor:pointer;
-}
-.result{text-align:center;display:none;}
-img{width:100%;max-width:320px;border-radius:10px;}
-.desc{margin-top:10px;font-size:0.95em;line-height:1.6;}
-#intakeInput{margin-top:20px;background:rgba(255,255,255,0.8);padding:12px;border-radius:10px;}
-input[type="number"]{width:60px;}
-.fade-in{opacity:0;transform:translateY(8px);animation:fadeUp 1.2s ease forwards;}
-@keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
-.tips{background:#fff3e0;padding:10px;border-radius:8px;margin-top:15px;font-size:0.9em;}
-.label-inline{display:inline-block;width:80px;}
+  :root {--ink:#111;--radius:12px;--shadow:0 2px 6px rgba(0,0,0,0.15);}
+  body {
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
+    color:var(--ink); background:#fafafa; margin:0; padding:20px;
+    max-width:640px; margin:auto; transition:background 1s ease-in-out,color 1s ease;
+  }
+  h1{text-align:center;font-size:1.8em;margin:10px 0 20px;}
+  .question{margin:18px 0;}
+  button{
+    display:block;width:100%;padding:12px;margin:15px 0;
+    border:none;border-radius:var(--radius);font-size:1em;
+    background:#e53935;color:#fff;box-shadow:var(--shadow);cursor:pointer;
+  }
+  select{padding:6px 10px;border-radius:6px;border:1px solid #ccc;margin:5px 0;width:100%;}
+  .result{text-align:center;display:none;}
+  img{width:100%;max-width:320px;border-radius:10px;}
+  .desc{margin-top:10px;font-size:0.95em;line-height:1.6;}
+  .stand-quote {
+    color:#fff;text-shadow:0 2px 6px rgba(0,0,0,0.5);
+    background:rgba(0,0,0,0.25);padding:8px 10px;border-radius:8px;display:inline-block;
+  }
+  #intakeInput{margin-top:20px;background:rgba(255,255,255,0.85);padding:14px;border-radius:12px;}
+  .drinkRow {
+    display:flex;justify-content:space-between;align-items:center;
+    background:#fff;border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,0.08);
+    padding:8px 12px;margin:6px 0;font-size:1em;white-space:nowrap;
+  }
+  .drinkRow input {
+    width:60px;text-align:right;border:1px solid #ccc;border-radius:6px;
+    padding:5px;font-size:1em;margin-left:6px;
+  }
+  #intakeInput h3 {text-align:center;margin-bottom:10px;}
+  .fade-in{opacity:0;transform:translateY(8px);animation:fadeUp 1.2s ease forwards;}
+  @keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
 </style>
 </head>
-
 <body>
+
 <h1>ALTI飲酒タイプ診断</h1>
 
-<!-- 質問フォーム -->
 <div id="quiz">
   <form id="altiForm">
-    <div class="question"><p>1. お酒を飲んで10分以内に顔が赤くなることがある。</p>
+    <p>飲み会モードと体調を選択してください。</p>
+    <label>🎉 飲み会モード：
+      <select id="partyMode">
+        <option value="off">OFF（通常）</option>
+        <option value="on">ON（ハメ外すかも）</option>
+      </select>
+    </label>
+    <label>💪 今日の体調：
+      <select id="condition">
+        <option value="1.2">絶好調</option>
+        <option value="1.0" selected>普通</option>
+        <option value="0.8">疲労気味</option>
+      </select>
+    </label>
+
+    <hr style="margin:20px 0;">
+    <p>以下の質問に答えてください。</p>
+
+    <div class="question"><p>1. お酒を飲んで10分以内に顔が赤くなる。</p>
       <label><input type="radio" name="q1" value="slow"> はい</label>
       <label><input type="radio" name="q1" value="fast"> いいえ</label></div>
-    <div class="question"><p>2. ビール1杯でも動悸や息苦しさを感じることがある。</p>
+
+    <div class="question"><p>2. ビール1杯でも動悸や息苦しさを感じる。</p>
       <label><input type="radio" name="q2" value="slow"> はい</label>
       <label><input type="radio" name="q2" value="fast"> いいえ</label></div>
-    <div class="question"><p>3. 少量でも体が熱くなり、手足がほてる。</p>
+
+    <div class="question"><p>3. 飲むとすぐ体が熱くなる。</p>
       <label><input type="radio" name="q3" value="slow"> はい</label>
       <label><input type="radio" name="q3" value="fast"> いいえ</label></div>
-    <div class="question"><p>4. 翌朝、頭痛や倦怠感が残ることが多い。</p>
+
+    <div class="question"><p>4. 翌朝頭痛や倦怠感が残る。</p>
       <label><input type="radio" name="q4" value="slow"> はい</label>
       <label><input type="radio" name="q4" value="fast"> いいえ</label></div>
-    <div class="question"><p>5. お酒を飲んだ夜は眠りが浅くなりやすい。</p>
+
+    <div class="question"><p>5. お酒を飲んだ夜は眠りが浅い。</p>
       <label><input type="radio" name="q5" value="slow"> はい</label>
       <label><input type="radio" name="q5" value="fast"> いいえ</label></div>
-    <div class="question"><p>6. お酒を飲んだ翌日、集中力が落ちる。</p>
+
+    <div class="question"><p>6. 翌日集中力が落ちやすい。</p>
       <label><input type="radio" name="q6" value="slow"> はい</label>
       <label><input type="radio" name="q6" value="fast"> いいえ</label></div>
+
     <div class="question"><p>7. 周りのテンションに引っ張られやすい。</p>
       <label><input type="radio" name="q7" value="emo"> はい</label>
       <label><input type="radio" name="q7" value="cool"> いいえ</label></div>
-    <div class="question"><p>8. 断るよりも「少しだけ飲もう」と思ってしまう。</p>
+
+    <div class="question"><p>8. 断るよりも「少しだけ飲もう」と思う。</p>
       <label><input type="radio" name="q8" value="emo"> はい</label>
       <label><input type="radio" name="q8" value="cool"> いいえ</label></div>
+
     <div class="question"><p>9. 飲み会では静かよりも盛り上がっていたい。</p>
       <label><input type="radio" name="q9" value="emo"> はい</label>
       <label><input type="radio" name="q9" value="cool"> いいえ</label></div>
-    <div class="question"><p>10. お酒を飲むと気分が高揚しやすい。</p>
+
+    <div class="question"><p>10. 飲むと気分が高揚しやすい。</p>
       <label><input type="radio" name="q10" value="emo"> はい</label>
       <label><input type="radio" name="q10" value="cool"> いいえ</label></div>
-
-    <h3>▼ 今日の体調</h3>
-    <label><input type="radio" name="cond" value="1.2"> 絶好調</label>
-    <label><input type="radio" name="cond" value="1.0"> 普通</label>
-    <label><input type="radio" name="cond" value="0.8"> 疲労気味</label>
-
-    <h3>▼ 飲み会モード</h3>
-    <label><input type="checkbox" id="partyMode"> 飲み会モードON（+50%）</label>
 
     <button type="button" onclick="showResult()">診断する</button>
   </form>
 </div>
 
-<!-- 結果 -->
 <div class="result" id="result">
   <h2 id="typeName"></h2>
   <img id="typeImg" src="" alt="診断結果画像">
   <p class="desc" id="typeDesc"></p>
+  <p class="stand-quote fade-in" id="standQuote"></p>
   <p id="doseResult" class="desc"></p>
-  <div class="tips" id="advice"></div>
 
   <div id="intakeInput" class="fade-in">
-    <h3>🍶 今日の予定を入力してみよう</h3>
-    <p style="font-size:0.9em;color:#555;">
-      目安：ビール500ml＝20g／酎ハイ350ml＝20g／ハイボール＝20g／日本酒1合＝22g／ウイスキー1杯＝19g
+    <h3>🥂 今日の予定を入力してみよう</h3>
+    <p style="font-size:0.9em;color:#555;margin-bottom:8px;">
+      目安：ビール500ml=20g ／ 酎ハイ350ml=20g ／ ハイボール=20g ／ 日本酒1合=22g ／ ウイスキー1杯=19g
     </p>
-    <div>🍺 ビール：<input type="number" id="beer" min="0" step="1" value="0"> 本　
-    🍹 酎ハイ：<input type="number" id="chu" min="0" step="1" value="0"> 缶</div>
-    <div>🥃 ハイボール：<input type="number" id="high" min="0" step="1" value="0"> 杯　
-    🍶 日本酒：<input type="number" id="sake" min="0" step="1" value="0"> 合　
-    🟤 ウイスキー：<input type="number" id="whisky" min="0" step="1" value="0"> 杯</div>
-    <button type="button" onclick="calcTotalIntake()">合計を判定する</button>
+
+    <div class="drinkRow">🍺 ビール<input type="number" id="beer" min="0" step="1" value="0"><span>本</span></div>
+    <div class="drinkRow">🍹 酎ハイ<input type="number" id="chu" min="0" step="1" value="0"><span>缶</span></div>
+    <div class="drinkRow">🥃 ハイボール<input type="number" id="high" min="0" step="1" value="0"><span>杯</span></div>
+    <div class="drinkRow">🍶 日本酒<input type="number" id="sake" min="0" step="1" value="0"><span>合</span></div>
+    <div class="drinkRow">🟤 ウイスキー<input type="number" id="whisky" min="0" step="1" value="0"><span>杯</span></div>
+
+    <button type="button" onclick="calcTotalIntake()">合計で判定する</button>
     <p id="intakeResult" class="desc"></p>
   </div>
 
@@ -122,11 +143,11 @@ input[type="number"]{width:60px;}
 
 <script>
 const alcoholTable={beer:20,chu:20,high:20,sake:22,whisky:19};
+const baseGrams={"slow-emo":30,"fast-emo":40,"fast-cool":45,"slow-cool":35};
 
 function showResult(){
   const answers=document.querySelectorAll('input[type=radio]:checked');
-  const cond=document.querySelector('input[name=cond]:checked');
-  if(answers.length<10 || !cond){alert("全ての質問と体調を選んでください");return;}
+  if(answers.length<10){alert("すべての質問に答えてください");return;}
 
   let score={slow:0,fast:0,emo:0,cool:0};
   answers.forEach(a=>score[a.value]++);
@@ -134,27 +155,29 @@ function showResult(){
   const axis2=score.emo>score.cool?"emo":"cool";
   const type=axis1+"-"+axis2;
 
+  const condition=parseFloat(document.getElementById("condition").value);
+  const partyMode=document.getElementById("partyMode").value==="on"?1.5:1.0;
+
+  let grams=baseGrams[type]*condition*partyMode;
+  grams=Math.round(grams/5)*5; // 切りのいい数字に
+  window.lastDose={grams};
+
   const data={
-    "slow-emo":{name:"🔥Slow-Emo（感情ジェット型）",img:"image/slow-emo.png",desc:"感情で燃えるタイプ。",base:30,bg:"linear-gradient(135deg,#f57c00,#ffe082)",advice:"🔥 水分をこまめに取って、油ものは控えめにワン！"},
-    "fast-emo":{name:"⚡Fast-Emo（社交ターボ型）",img:"image/fast-emo.png",desc:"テンションで突き抜けるタイプ。",base:40,bg:"linear-gradient(135deg,#ffb300,#bbdefb)",advice:"⚡ 盛り上がりすぎ注意！間にお水をはさもう！"},
-    "fast-cool":{name:"❄️Fast-Cool（理性スプリント型）",img:"image/fast-cool.png",desc:"代謝が速く冷静なタイプ。",base:45,bg:"linear-gradient(135deg,#4a6572,#cfd8dc)",advice:"❄️ データ通りでも油断禁物。水でリセットだ。"},
-    "slow-cool":{name:"🌿Slow-Cool（慎重ハイブリッド型）",img:"image/slow-cool.png",desc:"穏やかで安定したタイプ。",base:35,bg:"linear-gradient(135deg,#81c784,#e8f5e9)",advice:"🌿 ゆっくり楽しもう。おつまみはあっさり系がおすすめ。"}
+    "slow-emo":{name:"🔥Slow-Emo（感情ジェット型）",img:"image/slow-emo.png",desc:"感情のスイッチが入りやすいタイプ。",bg:"linear-gradient(135deg,#f57c00,#ffe082)",quote:"『燃える瞬間は美しいが、燃え尽きるなよ。』",tip:"🍊 柑橘系や炭酸水を挟もう。"},
+    "fast-emo":{name:"⚡Fast-Emo（社交ターボ型）",img:"image/fast-emo.png",desc:"ノリの良さと瞬発力が魅力。",bg:"linear-gradient(135deg,#ffb300,#bbdefb)",quote:"『波は乗るもの、飲まれるものじゃない！』",tip:"🍋 水1杯＝お酒1杯ルールを意識！"},
+    "fast-cool":{name:"❄️Fast-Cool（理性スプリント型）",img:"image/fast-cool.png",desc:"代謝が速く冷静さを保つタイプ。",bg:"linear-gradient(135deg,#4a6572,#cfd8dc)",quote:"『氷のように冷静でも、油断はひびを呼ぶ。』",tip:"🧊 データ通りでも油断禁物。水でリセット。"},
+    "slow-cool":{name:"🌿Slow-Cool（慎重ハイブリッド型）",img:"image/slow-cool.png",desc:"穏やかで安定したタイプ。",bg:"linear-gradient(135deg,#81c784,#e8f5e9)",quote:"『風に任せていい。ただし、根は忘れるな。』",tip:"🌿 おつまみは油控えめでバランス良く。"}
   };
 
   const info=data[type];
-  const condition=parseFloat(cond.value);
-  const party=document.getElementById("partyMode").checked?1.5:1.0;
-  const grams=Math.round(info.base*condition*party);
-
   document.body.style.background=info.bg;
   document.getElementById("typeName").textContent=info.name;
   document.getElementById("typeImg").src=info.img;
   document.getElementById("typeDesc").textContent=info.desc;
-  document.getElementById("doseResult").innerHTML=`今日の安全目安：<b>${grams}g（純アルコール）</b>`;
-  document.getElementById("advice").textContent=info.advice;
+  document.getElementById("standQuote").textContent=info.quote;
 
-  window.lastDose={grams};
-  window.lastMood=axis2;
+  document.getElementById("doseResult").innerHTML=
+  `今日の安全目安：${grams}g（純アルコール）<br><small>${info.tip}</small>`;
 
   document.getElementById("quiz").style.display="none";
   document.getElementById("result").style.display="block";
@@ -163,19 +186,20 @@ function showResult(){
 function calcTotalIntake(){
   let total=0;
   for(let key in alcoholTable){
-    total+=alcoholTable[key]*(parseFloat(document.getElementById(key).value)||0);
+    const val=parseFloat(document.getElementById(key).value)||0;
+    total+=alcoholTable[key]*val;
   }
   const safe=window.lastDose?window.lastDose.grams:20;
   const ratio=(total/safe).toFixed(1);
-  let msg="",color="";
+  let msg,color;
   if(total<=safe){
-    msg=`🍀 合計 ${total.toFixed(0)}g（${ratio}倍） → 理想的です！`;
+    msg=`🍀 ${total}g（安全範囲内）ナイスペース！`;
     color="#2e7d32";
   }else if(total<=safe*1.5){
-    msg=`⚠️ ${total.toFixed(0)}g（${ratio}倍）→ 少しオーバー。水を多めに！`;
+    msg=`⚠️ ${total}g（${ratio}倍）少しオーバー、水を多めに！`;
     color="#f9a825";
   }else{
-    msg=`🚫 ${total.toFixed(0)}g（${ratio}倍）→ 飲みすぎ注意！体をいたわろう。`;
+    msg=`🚫 ${total}g（${ratio}倍）かなり超過、今夜は控えよう！`;
     color="#c62828";
   }
   const out=document.getElementById("intakeResult");
@@ -185,9 +209,9 @@ function calcTotalIntake(){
 
 function restart(){
   document.body.style.background="#fafafa";
-  document.getElementById("quiz").style.display="block";
   document.getElementById("result").style.display="none";
-  document.querySelectorAll('input[type=radio],input[type=checkbox]').forEach(el=>el.checked=false);
+  document.getElementById("quiz").style.display="block";
+  document.querySelectorAll('input[type=radio]').forEach(el=>el.checked=false);
   ['beer','chu','high','sake','whisky'].forEach(id=>document.getElementById(id).value=0);
 }
 </script>
