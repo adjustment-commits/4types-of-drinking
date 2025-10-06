@@ -11,8 +11,6 @@
   --radius:14px;
   --shadow:0 6px 16px rgba(0,0,0,0.3);
 }
-
-/* 背景・基本スタイル */
 body {
   font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
   color:#fff;
@@ -26,7 +24,6 @@ body {
   align-items:center;
   min-height:100vh;
 }
-
 h1 {
   text-align:center;
   font-size:1.9em;
@@ -35,8 +32,6 @@ h1 {
   color:#ffd54f;
   text-shadow:0 2px 6px rgba(0,0,0,0.6);
 }
-
-/* 質問カード */
 .question, .option-group {
   background:rgba(255,255,255,0.1);
   border:1px solid rgba(255,255,255,0.2);
@@ -45,11 +40,8 @@ h1 {
   margin:12px 0;
   box-shadow:var(--shadow);
 }
-
 label {margin-right:12px; display:inline-block;}
 input[type="radio"], input[type="checkbox"], input[type="number"] {accent-color:#ffb300;}
-
-/* ボタン */
 button {
   display:block; width:100%; padding:14px;
   border:none; border-radius:12px; font-size:1.1em; font-weight:bold;
@@ -59,18 +51,10 @@ button {
   transition:transform 0.2s ease;
 }
 button:hover {transform:scale(1.03);}
-
-/* 結果画面 */
 .result {text-align:center; display:none;}
 img {width:100%; max-width:320px; border-radius:10px;}
 .desc {margin-top:10px; font-size:0.95em; line-height:1.6;}
-.stand-quote {background:rgba(0,0,0,0.3); padding:6px 10px; border-radius:8px; display:inline-block; margin-top:8px;}
-
-/* 飲酒入力欄 */
-#intakeInput {margin-top:20px; background:rgba(255,255,255,0.08); padding:12px; border-radius:10px;}
-input[type="number"] {width:60px; text-align:center; border-radius:6px; border:none; padding:4px;}
 #intakeInput{max-width:560px;width:100%;}
-
 .drinkRow{
   display:grid;
   grid-template-columns:minmax(220px,1fr) 80px 28px;
@@ -85,64 +69,37 @@ input[type="number"] {width:60px; text-align:center; border-radius:6px; border:n
   background:rgba(255,255,255,.9);color:#111;
 }
 .drinkRow .unit{text-align:left;opacity:.85;}
-
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
 input[type="number"]{-moz-appearance:textfield;}
-
-/* 結果ボックス（ゴールド発光） */
-.desc-box {
-  position: relative;
-  background: rgba(0,0,0,0.45);
-  border-radius: 14px;
-  padding: 20px 18px;
-  margin-top: 18px;
-  color: #fff;
-  line-height: 1.7;
-  font-size: 0.97em;
-  box-shadow:
-    0 0 12px rgba(212,175,55,0.25),
-    inset 0 0 18px rgba(212,175,55,0.15);
-  border: 1px solid rgba(212,175,55,0.5);
-  overflow: hidden;
-  transition: all 0.8s ease;
-}
-.desc-box::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: conic-gradient(
-    from 0deg,
-    rgba(255,215,128,0.15),
-    rgba(255,255,255,0.25),
-    rgba(255,215,128,0.15)
-  );
-  filter: blur(8px);
-  opacity: 0.5;
-  border-radius: inherit;
-  animation: goldPulse 6s linear infinite;
-  pointer-events: none;
-}
-@keyframes goldPulse {
-  0% { transform: rotate(0deg); opacity: 0.4; }
-  50% { opacity: 0.8; }
-  100% { transform: rotate(360deg); opacity: 0.4; }
-}
-/* 明るい背景用ボックス */
-.desc-box.bright {
-  background: rgba(255,255,255,0.75);
-  color: #111;
-  border: 1px solid rgba(212,175,55,0.6);
-  box-shadow:
-    0 0 8px rgba(255,255,255,0.4),
-    inset 0 0 12px rgba(255,255,255,0.2);
-}
-
 .fade-in{opacity:0;transform:translateY(8px);animation:fadeUp 1.2s ease forwards;}
 @keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
 @keyframes gradientShift{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
 @keyframes gradientFlow{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
 @media(max-width:480px){body{padding:10px;}h1{font-size:1.5em;}.drinkRow{grid-template-columns:minmax(150px,1fr)68px24px;gap:8px;}.drinkRow .label{font-size:.95em;}}
+/* 結果ボックス */
+.result-box {
+  background: linear-gradient(135deg,#222,#000);
+  color: #fff;
+  border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  margin: 20px auto;
+  max-width: 500px;
+}
+.result-box p {
+  color:#fff;
+  text-shadow:0 1px 4px rgba(0,0,0,0.5);
+}
+.result-box .stand-quote {
+  background:rgba(255,255,255,0.08);
+  border-left:4px solid #ff7043;
+  padding:10px;
+  border-radius:8px;
+  margin-top:10px;
+  font-style:italic;
+  color:#fff;
+}
 </style>
 </head>
 <body>
@@ -151,7 +108,6 @@ input[type="number"]{-moz-appearance:textfield;}
 
 <div id="quiz">
   <form id="altiForm">
-    <!-- 質問群 -->
     <div class="question"><p>1. お酒を飲んで10分以内に顔が赤くなることがある。</p>
       <label><input type="radio" name="q1" value="slow"> はい</label>
       <label><input type="radio" name="q1" value="fast"> いいえ</label></div>
@@ -183,13 +139,11 @@ input[type="number"]{-moz-appearance:textfield;}
       <label><input type="radio" name="q10" value="emo"> はい</label>
       <label><input type="radio" name="q10" value="cool"> いいえ</label></div>
 
-    <!-- 体調・モード -->
     <div class="option-group">
       <p>🔋 体調を選択：</p>
       <label><input type="radio" name="condition" value="1.2"> 絶好調</label>
       <label><input type="radio" name="condition" value="1.0" checked> 普通</label>
       <label><input type="radio" name="condition" value="0.8"> 疲労気味</label>
-
       <p style="margin-top:10px;">🎉 飲み会モード：</p>
       <label><input type="checkbox" id="partyMode"> ONにする</label>
     </div>
@@ -198,14 +152,13 @@ input[type="number"]{-moz-appearance:textfield;}
   </form>
 </div>
 
-<!-- 結果画面 -->
 <div class="result" id="result">
   <h2 id="typeName"></h2>
   <img id="typeImg" src="" alt="診断結果画像">
 
-  <div id="descBox" class="desc-box fade-in">
+  <div class="result-box">
     <p class="desc" id="typeDesc"></p>
-    <p class="stand-quote" id="standQuote"></p>
+    <p class="stand-quote fade-in" id="standQuote"></p>
     <p id="doseResult" class="desc"></p>
   </div>
 
@@ -252,27 +205,23 @@ function showResult(){
   grams=Math.round(grams*cond*party);
 
   const data={
-    "slow-emo":{name:"🔥Slow-Emo（感情ジェット型）",img:"image/slow-emo.png",desc:"感情が燃えやすく、ペースを見失いやすいタイプ。",bg:"linear-gradient(135deg,#f57c00,#ffe082)",quote:"『燃える瞬間は美しいが、燃え尽きるなよ。』"},
-    "fast-cool":{name:"❄️Fast-Cool（理性スプリント型）",img:"image/fast-cool.png",desc:"代謝が速くクールな理性タイプ。",bg:"linear-gradient(135deg,#4a6572,#cfd8dc)",quote:"『氷のように冷静でも、油断はひびを呼ぶ。』"},
-    "fast-emo":{name:"⚡Fast-Emo（社交ターボ型）",img:"image/fast-emo.png",desc:"ノリの良さが魅力の瞬発型。",bg:"linear-gradient(135deg,#ffb300,#bbdefb)",quote:"『波は乗るもの、飲まれるものじゃない！』"},
-    "slow-cool":{name:"🌿Slow-Cool（慎重ハイブリッド型）",img:"image/slow-cool.png",desc:"穏やかで安定したタイプ。",bg:"linear-gradient(135deg,#81c784,#e8f5e9)",quote:"『風に任せていい。ただし、根は忘れるな。』"}
+    "slow-emo":{name:"🔥Slow-Emo（感情ジェット型）",img:"image/slow-emo.png",desc:"感情が燃えやすく、ペースを見失いやすいタイプ。",bg:"linear-gradient(135deg,#f57c00,#ff8f00)"},
+    "fast-cool":{name:"❄️Fast-Cool（理性スプリント型）",img:"image/fast-cool.png",desc:"代謝が速くクールな理性タイプ。",bg:"linear-gradient(135deg,#455a64,#263238)"},
+    "fast-emo":{name:"⚡Fast-Emo（社交ターボ型）",img:"image/fast-emo.png",desc:"ノリの良さが魅力の瞬発型。",bg:"linear-gradient(135deg,#f57c00,#ef6c00)"},
+    "slow-cool":{name:"🌿Slow-Cool（慎重ハイブリッド型）",img:"image/slow-cool.png",desc:"穏やかで安定したタイプ。",bg:"linear-gradient(135deg,#2e7d32,#1b5e20)"}
   };
 
   const info=data[type];
   document.body.style.background=info.bg;
-
-  const brightBackgrounds=["slow-cool","fast-cool"];
-  const box=document.getElementById("descBox");
-  box.classList.toggle("bright",brightBackgrounds.includes(type));
+  document.body.style.color="#fff";
 
   document.getElementById("typeName").textContent=info.name;
   document.getElementById("typeImg").src=info.img;
   document.getElementById("typeDesc").textContent=info.desc;
-  document.getElementById("standQuote").textContent=info.quote;
 
   const beer=Math.round(grams/20),chu=Math.round(grams/20),high=Math.round(grams/20),sake=Math.round(grams/22),whisky=Math.round(grams/19);
   document.getElementById("doseResult").innerHTML=`推奨：純アルコール ${grams}g／日 程度<br>
-   🍺ビール:${beer}本 🍹酎ハイ:${chu}缶 🥃ハイボール:${high}杯<br>🍶日本酒:${sake}合 🟤ウイスキー:${whisky}杯`;
+  🍺ビール:${beer}本 🍹酎ハイ:${chu}缶 🥃ハイボール:${high}杯<br>🍶日本酒:${sake}合 🟤ウイスキー:${whisky}杯`;
 
   document.getElementById("quiz").style.display="none";
   document.getElementById("result").style.display="block";
@@ -308,21 +257,10 @@ function calcTotalIntake(){
 }
 
 function restart(){
-  // 背景と配色を初期状態へ
   document.body.style.background="linear-gradient(135deg,#0f2027,#203a43,#2c5364)";
   document.body.style.color="#fff";
-  document.getElementById("descBox").classList.remove("bright");
-
-  document.querySelectorAll("input, button, .desc, h3, label").forEach(el=>{
-    el.style.color="#fff";
-    el.style.backgroundColor="rgba(0,0,0,0.2)";
-  });
-
-  // 表示切り替え
   document.getElementById("result").style.display="none";
   document.getElementById("quiz").style.display="block";
-
-  // 入力リセット
   document.querySelectorAll('input[type=radio],input[type=checkbox]').forEach(el=>el.checked=false);
   ['beer','chu','high','sake','whisky'].forEach(id=>document.getElementById(id).value=0);
 }
