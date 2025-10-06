@@ -7,107 +7,79 @@
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#e53935">
 <style>
-  :root {
-    --radius:14px;
-    --shadow:0 6px 16px rgba(0,0,0,0.3);
-  }
-
-  body {
-    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
-    color:#fff;
-    background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-    background-size:400% 400%;
-    animation: gradientShift 15s ease infinite;
-    margin:0;
-    padding:20px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    min-height:100vh;
-  }
-
-  h1 {
-    text-align:center;
-    font-size:1.9em;
-    margin:20px 0 10px;
-    font-weight:700;
-    color:#ffd54f;
-    text-shadow:0 2px 6px rgba(0,0,0,0.6);
-  }
-
-  .question, .option-group {
-    background:rgba(255,255,255,0.1);
-    border:1px solid rgba(255,255,255,0.2);
-    border-radius:12px;
-    padding:14px;
-    margin:12px 0;
-    box-shadow:var(--shadow);
-  }
-
-  label {margin-right:12px; display:inline-block;}
-  input[type="radio"], input[type="checkbox"], input[type="number"] {accent-color:#ffb300;}
-
-  button {
-    display:block; width:100%; padding:14px;
-    border:none; border-radius:12px; font-size:1.1em; font-weight:bold;
-    background:linear-gradient(90deg,#ffd54f,#ff7043,#e53935);
-    background-size:300% 300%; animation:gradientFlow 8s ease infinite;
-    color:#fff; cursor:pointer; box-shadow:0 6px 16px rgba(0,0,0,0.4);
-    transition:transform 0.2s ease;
-  }
-  button:hover {transform:scale(1.03);}
-
-  .result {text-align:center; display:none;}
-  img {width:100%; max-width:320px; border-radius:10px;}
-  .desc {margin-top:10px; font-size:0.95em; line-height:1.6;}
-  .stand-quote {background:rgba(0,0,0,0.3); padding:6px 10px; border-radius:8px; display:inline-block; margin-top:8px;}
-  #intakeInput {margin-top:20px; background:rgba(255,255,255,0.08); padding:12px; border-radius:10px;}
-  input[type="number"] {width:60px; text-align:center; border-radius:6px; border:none; padding:4px;}
-
-  #intakeInput{max-width:560px;width:100%;}
-
+:root {
+  --radius:14px;
+  --shadow:0 6px 16px rgba(0,0,0,0.3);
+}
+body {
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
+  color:#fff;
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  background-size:400% 400%;
+  animation:gradientShift 15s ease infinite;
+  margin:0;
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  min-height:100vh;
+}
+h1 {
+  text-align:center;
+  font-size:1.9em;
+  margin:20px 0 10px;
+  font-weight:700;
+  color:#ffd54f;
+  text-shadow:0 2px 6px rgba(0,0,0,0.6);
+}
+.question, .option-group {
+  background:rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.2);
+  border-radius:12px;
+  padding:14px;
+  margin:12px 0;
+  box-shadow:var(--shadow);
+}
+label {margin-right:12px; display:inline-block;}
+input[type="radio"], input[type="checkbox"], input[type="number"] {accent-color:#ffb300;}
+button {
+  display:block; width:100%; padding:14px;
+  border:none; border-radius:12px; font-size:1.1em; font-weight:bold;
+  background:linear-gradient(90deg,#ffd54f,#ff7043,#e53935);
+  background-size:300% 300%; animation:gradientFlow 8s ease infinite;
+  color:#fff; cursor:pointer; box-shadow:0 6px 16px rgba(0,0,0,0.4);
+  transition:transform 0.2s ease;
+}
+button:hover {transform:scale(1.03);}
+.result {text-align:center; display:none;}
+img {width:100%; max-width:320px; border-radius:10px;}
+.desc {margin-top:10px; font-size:0.95em; line-height:1.6;}
+.stand-quote {background:rgba(0,0,0,0.3); padding:6px 10px; border-radius:8px; display:inline-block; margin-top:8px;}
+#intakeInput {margin-top:20px; background:rgba(255,255,255,0.08); padding:12px; border-radius:10px;}
+input[type="number"] {width:60px; text-align:center; border-radius:6px; border:none; padding:4px;}
+#intakeInput{max-width:560px;width:100%;}
 .drinkRow{
   display:grid;
-  grid-template-columns: minmax(220px,1fr) 80px 28px;
+  grid-template-columns:minmax(220px,1fr) 80px 28px;
   align-items:center;
   gap:10px;
   margin:10px 0;
 }
-
-.drinkRow .label{
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
+.drinkRow .label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .drinkRow input[type=number]{
-  width:100%;
-  height:40px;
-  text-align:center;
-  border-radius:8px;
-  border:1px solid rgba(0,0,0,.15);
-  background:rgba(255,255,255,.9);
-  color:#111;
+  width:100%;height:40px;text-align:center;
+  border-radius:8px;border:1px solid rgba(0,0,0,.15);
+  background:rgba(255,255,255,.9);color:#111;
 }
-
-.drinkRow .unit{
-  text-align:left;
-  opacity:.85;
-}
-
+.drinkRow .unit{text-align:left;opacity:.85;}
 input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0; }
-input[type="number"]{ -moz-appearance:textfield; }
-
-@media (max-width:480px){
-  .drinkRow{ grid-template-columns: minmax(150px,1fr) 68px 24px; gap:8px; }
-  .drinkRow .label{ font-size:.95em; }
-}
-  .fade-in {opacity:0; transform:translateY(8px); animation:fadeUp 1.2s ease forwards;}
-  @keyframes fadeUp{to{opacity:1; transform:translateY(0);}}
-  @keyframes gradientShift {0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
-  @keyframes gradientFlow {0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
-  @media(max-width:480px){body{padding:10px;} h1{font-size:1.5em;} .drinkRow{flex-wrap:wrap;}}
+input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+input[type="number"]{-moz-appearance:textfield;}
+.fade-in{opacity:0;transform:translateY(8px);animation:fadeUp 1.2s ease forwards;}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
+@keyframes gradientShift{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+@keyframes gradientFlow{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+@media(max-width:480px){body{padding:10px;}h1{font-size:1.5em;}.drinkRow{grid-template-columns:minmax(150px,1fr)68px24px;gap:8px;}.drinkRow .label{font-size:.95em;}}
 </style>
 </head>
 <body>
@@ -116,6 +88,7 @@ input[type="number"]{ -moz-appearance:textfield; }
 
 <div id="quiz">
   <form id="altiForm">
+    <!-- 質問群 -->
     <div class="question"><p>1. お酒を飲んで10分以内に顔が赤くなることがある。</p>
       <label><input type="radio" name="q1" value="slow"> はい</label>
       <label><input type="radio" name="q1" value="fast"> いいえ</label></div>
@@ -147,6 +120,7 @@ input[type="number"]{ -moz-appearance:textfield; }
       <label><input type="radio" name="q10" value="emo"> はい</label>
       <label><input type="radio" name="q10" value="cool"> いいえ</label></div>
 
+    <!-- 体調・モード -->
     <div class="option-group">
       <p>🔋 体調を選択：</p>
       <label><input type="radio" name="condition" value="1.2"> 絶好調</label>
@@ -168,17 +142,17 @@ input[type="number"]{ -moz-appearance:textfield; }
   <p class="stand-quote fade-in" id="standQuote"></p>
   <p id="doseResult" class="desc"></p>
 
- <div id="intakeInput" class="fade-in">
-  <h3>🍶 飲む予定を入力</h3>
-  <div class="drinkRow"><span class="label">🍺 ビール（20g/本）</span><input type="number" id="beer" min="0" step="1" value="0"><span class="unit">本</span></div>
-  <div class="drinkRow"><span class="label">🍹 酎ハイ（20g/缶）</span><input type="number" id="chu" min="0" step="1" value="0"><span class="unit">缶</span></div>
-  <div class="drinkRow"><span class="label">🥃 ハイボール（20g/杯）</span><input type="number" id="high" min="0" step="1" value="0"><span class="unit">杯</span></div>
-  <div class="drinkRow"><span class="label">🍶 日本酒（22g/合）</span><input type="number" id="sake" min="0" step="1" value="0"><span class="unit">合</span></div>
-  <div class="drinkRow"><span class="label">🟤 ウイスキー（19g/杯）</span><input type="number" id="whisky" min="0" step="1" value="0"><span class="unit">杯</span></div>
-  <button type="button" onclick="calcTotalIntake()">合計で判定する</button>
-  <p id="intakeResult" class="desc"></p>
-  <p id="advice" class="desc" style="font-style:italic;"></p>
-</div>
+  <div id="intakeInput" class="fade-in">
+    <h3>🍶 飲む予定を入力</h3>
+    <div class="drinkRow"><span class="label">🍺 ビール（20g/本）</span><input type="number" id="beer" min="0" step="1" value="0"><span class="unit">本</span></div>
+    <div class="drinkRow"><span class="label">🍹 酎ハイ（20g/缶）</span><input type="number" id="chu" min="0" step="1" value="0"><span class="unit">缶</span></div>
+    <div class="drinkRow"><span class="label">🥃 ハイボール（20g/杯）</span><input type="number" id="high" min="0" step="1" value="0"><span class="unit">杯</span></div>
+    <div class="drinkRow"><span class="label">🍶 日本酒（22g/合）</span><input type="number" id="sake" min="0" step="1" value="0"><span class="unit">合</span></div>
+    <div class="drinkRow"><span class="label">🟤 ウイスキー（19g/杯）</span><input type="number" id="whisky" min="0" step="1" value="0"><span class="unit">杯</span></div>
+    <button type="button" onclick="calcTotalIntake()">合計で判定する</button>
+    <p id="intakeResult" class="desc"></p>
+    <p id="advice" class="desc" style="font-style:italic;"></p>
+  </div>
 
   <p class="desc" style="font-size:0.8em;color:#ccc;">
     ※ この診断はあくまで一般的な目安です。<br>
@@ -220,14 +194,10 @@ function showResult(){
   const info=data[type];
   document.body.style.background=info.bg;
 
-  // 🔹 背景に応じて文字色自動調整
+  // 背景の明るさで文字色切替
   const brightBackgrounds=["slow-cool","fast-cool"];
-  const darkBackgrounds=["slow-emo","fast-emo"];
-  let textColor="#fff";
-
-  if(brightBackgrounds.includes(type)) textColor="#111";
+  const textColor=brightBackgrounds.includes(type)?"#111":"#fff";
   document.body.style.color=textColor;
-
   document.querySelectorAll("input, button, .desc, h3, label").forEach(el=>{
     el.style.color=textColor;
     el.style.backgroundColor=textColor==="#fff"?"rgba(0,0,0,0.2)":"rgba(255,255,255,0.3)";
@@ -255,33 +225,30 @@ function calcTotalIntake(){
   }
   const safe=window.lastDose?window.lastDose.grams:40;
   const type=window.lastDose?window.lastDose.type:"fast-cool";
-  const ratio=(total/safe).toFixed(2);
   let msg="",color="",advice="";
   if(total<=safe){
     msg=`🍀 合計 ${total}g。理想的なペースです。`;
     color="#2e7d32";
-    advice= type.includes("emo") ? "水を多めにとって余韻を楽しもう。" : "軽い食事と一緒にリラックスを。";
+    advice=type.includes("emo")?"水を多めにとって余韻を楽しもう。":"軽い食事と一緒にリラックスを。";
   }else if(total<=safe*1.5){
     msg=`⚠️ ${total}g（やや超過）。少しペースを落とそう。`;
     color="#f9a825";
-    advice= type.includes("emo") ? "途中でノンアルを挟もう！" : "油ものを控えて胃を守ろう。";
+    advice=type.includes("emo")?"途中でノンアルを挟もう！":"油ものを控えて胃を守ろう。";
   }else{
     msg=`🚫 ${total}g（危険域）。今日はブレーキを。`;
     color="#c62828";
-    advice= type.includes("emo") ? "一度深呼吸してペースダウン。" : "水分をしっかり取って早めの休息を。";
+    advice=type.includes("emo")?"一度深呼吸してペースダウン。":"水分をしっかり取って早めの休息を。";
   }
-   const out=document.getElementById("intakeResult");
+  const out=document.getElementById("intakeResult");
   out.style.color=color;
   out.innerHTML=msg;
   document.getElementById("advice").textContent=advice;
 }
 
 function restart(){
-  // 元のグラデーション背景に戻す
+  // 背景と配色を初期状態へ
   document.body.style.background="linear-gradient(135deg,#0f2027,#203a43,#2c5364)";
   document.body.style.color="#fff";
-  
-  // 各要素の初期スタイルに戻す
   document.querySelectorAll("input, button, .desc, h3, label").forEach(el=>{
     el.style.color="#fff";
     el.style.backgroundColor="rgba(0,0,0,0.2)";
