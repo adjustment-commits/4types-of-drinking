@@ -1,0 +1,21 @@
+{
+  "name": "ALTI飲酒タイプ診断",
+  "short_name": "ALTI",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#fafafa",
+  "theme_color": "#e53935",
+  "description": "体質と心理から最適な飲酒量を導くセルフマネジメントAIアプリ",
+  "icons": [
+    {
+      "src": "img/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "img/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
