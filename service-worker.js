@@ -1,8 +1,11 @@
-const CACHE_NAME = "alti-drink-v1";
+// ==========================
+// 🧩 ALTI 飲酒タイプ診断 PWA Service Worker
+// ==========================
+
+const CACHE_NAME = "alti-drink-check-v3";
 const urlsToCache = [
   "index.html",
   "manifest.json",
-  "service-worker.js",
   "image/icon-192.png",
   "image/icon-512.png",
   "image/slow-emo.png",
@@ -11,35 +14,39 @@ const urlsToCache = [
   "image/slow-cool.png"
 ];
 
-// 初回インストール時にキャッシュ登録
+// --- インストール時にキャッシュ ---
 self.addEventListener("install", event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(urlsToCache);
-    })
+    caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
   );
-  console.log("✅ Service Worker: Installed");
 });
 
-// リクエスト時にキャッシュ or ネットワーク
+// --- リクエスト時にキャッシュ or ネットから取得 ---
 self.addEventListener("fetch", event => {
   event.respondWith(
     caches.match(event.request).then(response => {
-      return response || fetch(event.request);
+      return (
+        response ||
+        fetch(event.request).then(resp => {
+          return caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, resp.clone());
+            return resp;
+          });
+        })
+      );
     })
   );
 });
 
-// 新しいバージョンのキャッシュに更新
+// --- 古いキャッシュの削除 ---
 self.addEventListener("activate", event => {
   event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames
-          .filter(name => name !== CACHE_NAME)
-          .map(name => caches.delete(name))
-      );
-    })
+    caches.keys().then(keys =>
+      Promise.all(
+        keys.map(key => {
+          if (key !== CACHE_NAME) return caches.delete(key);
+        })
+      )
+    )
   );
-  console.log("🆕 Service Worker: Activated");
 });
