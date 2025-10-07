@@ -88,10 +88,13 @@ img {width:100%; max-width:320px; border-radius:10px;}
 }
 @media(max-width:480px){
   .drinkRow{
-    grid-template-columns:minmax(130px,1fr)50px35px;
-    gap:6px;
+    grid-template-columns:minmax(130px,1fr)45px45px; /* ←数字欄を少し狭く、単位欄を広げた */
+    gap:8px; /* 少しスペースを追加 */
   }
-  .drinkRow .unit{font-size:0.9em;}
+  .drinkRow .unit{
+    font-size:0.9em;
+    padding-left:2px; /* ←「本」などが数字にくっつかないよう微調整 */
+  }
 }
 
 /* 結果ボックス */
@@ -117,7 +120,7 @@ img {width:100%; max-width:320px; border-radius:10px;}
 
 /* 結果見出し・画像 */
 .result h2 {
-  font-size:1.4em;
+  font-size:1.2em;
   margin-top:20px;
   margin-bottom:12px;
   text-align:center;
