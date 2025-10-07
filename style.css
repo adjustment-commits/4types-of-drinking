@@ -188,6 +188,57 @@ img {
   animation:cardPop 0.6s ease forwards;
   transform:translateY(20px);
 }
+/* ========================
+   モーダル ヘッダー配置修正版
+======================== */
+.modal-content {
+  position: relative;
+  background: rgba(0, 0, 0, 0.88);
+  border-radius: 18px;
+  padding: 40px 22px 28px; /* ← 上に多めの余白を確保 */
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+  max-width: 640px;
+  width: 90%;
+  animation: cardPop 0.6s ease forwards;
+  transform: translateY(20px);
+}
+
+/* タイトル＋閉じるボタンを横並びで整列 */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+/* タイトル */
+.modal-header h3 {
+  flex: 1;
+  text-align: center;
+  color: #ffd54f;
+  margin: 0;
+  font-size: 1.3em;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* ×ボタンを右上に控えめに配置 */
+.close-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.4em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
+  position: absolute;
+  right: 18px;
+  top: 16px;
+}
+.close-btn:hover {
+  color: #ffd54f;
+  transform: scale(1.15);
+}
 @keyframes cardPop {
   to {transform:translateY(0);opacity:1;}
 }
