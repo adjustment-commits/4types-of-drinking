@@ -6,7 +6,8 @@
 <title>ALTI飲酒タイプ診断</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0f2027">
-<link rel="apple-touch-icon" href="image/icon-192.png">
+<link rel="apple-touch-icon" href="icons-192.png">
+
 <style>
 :root {
   --radius:14px;
@@ -57,88 +58,59 @@ img {width:100%; max-width:320px; border-radius:10px;}
 .desc {margin-top:10px; font-size:0.95em; line-height:1.6;}
 #intakeInput{max-width:560px;width:100%;margin-top:20px;}
 .drinkRow {
-  display: grid;
-  grid-template-columns: minmax(160px, 1fr) 70px 40px; /* ← 少し余裕を持たせた */
-  align-items: center;
-  gap: 10px;
-  margin: 10px 0;
+  display:grid;
+  grid-template-columns:minmax(180px,1fr) 55px 45px;
+  align-items:center;
+  gap:10px;
+  margin:10px 0;
 }
-
 .drinkRow input[type=number] {
-  width: 55px;
-  height: 40px;
-  line-height: 40px;
-  text-align: center;
-  border-radius: 8px;
-  border: 1px solid rgba(0,0,0,0.15);
-  background: rgba(255,255,255,0.9);
-  color: #111;
-}
-
-.drinkRow .unit {
-  text-align: left;
-  opacity: 0.9;
-  font-weight: 600;
-  font-size: 1em;
-  padding-left: 2px;
-}
-
-/* スマホ用調整 */
-@media(max-width:480px){
-  .drinkRow {
-    grid-template-columns: minmax(140px, 1fr) 60px 40px; /* ← 単位側を広げた */
-    gap: 8px;
-  }
-  .drinkRow .label {
-    font-size: 0.95em;
-  }
-}
-
   width:100%;
-  height:38px;
+  height:34px;
+  line-height:34px;
   text-align:center;
   border-radius:8px;
   border:1px solid rgba(0,0,0,.15);
   background:rgba(255,255,255,.9);
   color:#111;
 }
-.drinkRow .label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.drinkRow .unit{text-align:left;opacity:.9;}
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
-input[type="number"]{-moz-appearance:textfield;}
-.fade-in{opacity:0;transform:translateY(8px);animation:fadeUp 1.2s ease forwards;}
-@keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
-@keyframes gradientShift{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
-@keyframes gradientFlow{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+.drinkRow .label {
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.drinkRow .unit {
+  text-align:left;
+  opacity:.9;
+  font-weight:600;
+  font-size:1em;
+  padding-left:4px;
+}
 @media(max-width:480px){
-  body{padding:10px;}
-  h1{font-size:1.5em;}
-  .drinkRow{grid-template-columns:minmax(150px,1fr)60px30px;gap:6px;}
+  .drinkRow{
+    grid-template-columns:minmax(130px,1fr)50px35px;
+    gap:6px;
+  }
+  .drinkRow .unit{font-size:0.9em;}
 }
 /* 結果ボックス */
 .result-box {
-  background: linear-gradient(135deg,#111,#000);
-  color: #fff;
-  border-radius: 14px;
-  padding: 18px 20px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-  margin: 20px auto;
-  max-width: 500px;
+  background:linear-gradient(135deg,#111,#000);
+  color:#fff;
+  border-radius:14px;
+  padding:18px 20px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.4);
+  margin:20px auto;
+  max-width:500px;
 }
 .result-box p {
   color:#fff;
   text-shadow:0 1px 4px rgba(0,0,0,0.5);
 }
-.result-box .stand-quote {
-  background:rgba(255,255,255,0.08);
-  border-left:4px solid #ff7043;
-  padding:10px;
-  border-radius:8px;
-  margin-top:10px;
-  font-style:italic;
-  color:#fff;
-}
+.fade-in{opacity:0;transform:translateY(8px);animation:fadeUp 1.2s ease forwards;}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
+@keyframes gradientShift{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+@keyframes gradientFlow{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
 </style>
 </head>
 <body>
@@ -147,6 +119,7 @@ input[type="number"]{-moz-appearance:textfield;}
 
 <div id="quiz">
   <form id="altiForm">
+    <!-- 質問 -->
     <div class="question"><p>1. お酒を飲んで10分以内に顔が赤くなることがある。</p>
       <label><input type="radio" name="q1" value="slow"> はい</label>
       <label><input type="radio" name="q1" value="fast"> いいえ</label></div>
@@ -183,7 +156,6 @@ input[type="number"]{-moz-appearance:textfield;}
       <label><input type="radio" name="condition" value="1.2"> 絶好調</label>
       <label><input type="radio" name="condition" value="1.0" checked> 普通</label>
       <label><input type="radio" name="condition" value="0.8"> 疲労気味</label>
-
       <p style="margin-top:10px;">🎉 飲み会モード：</p>
       <label><input type="checkbox" id="partyMode"> ONにする</label>
     </div>
@@ -201,7 +173,7 @@ input[type="number"]{-moz-appearance:textfield;}
     <p id="doseResult" class="desc"></p>
   </div>
 
-  <div id="intakeInput" class="fade-in" style="display:block;">
+  <div id="intakeInput" class="fade-in">
     <h3>🍶 飲む予定を入力</h3>
     <div class="drinkRow"><span class="label">🍺 ビール（20g/本）</span><input type="number" id="beer" min="0" step="1" value="0"><span class="unit">本</span></div>
     <div class="drinkRow"><span class="label">🍹 酎ハイ（20g/缶）</span><input type="number" id="chu" min="0" step="1" value="0"><span class="unit">缶</span></div>
@@ -241,9 +213,9 @@ function showResult(){
   grams=Math.round(grams*cond*party);
 
   const data={
-    "slow-emo":{name:"🔥Slow-Emo（感情ジェット型）",img:"image/slow-emo.png",desc:"感情が燃えやすく、ペースを見失いやすいタイプ。",bg:"linear-gradient(135deg,#f57c00,#ff8f00)"},
+    "slow-emo":{name:"🔥Slow-Emo（感情ジェット型）",img:"image/slow-emo.png",desc:"感情が燃えやすく、ペースを見失いやすいタイプ。",bg:"linear-gradient(135deg,#f57c00,#ef6c00)"},
     "fast-cool":{name:"❄️Fast-Cool（理性スプリント型）",img:"image/fast-cool.png",desc:"代謝が速くクールな理性タイプ。",bg:"linear-gradient(135deg,#455a64,#263238)"},
-    "fast-emo":{name:"⚡Fast-Emo（社交ターボ型）",img:"image/fast-emo.png",desc:"ノリの良さが魅力の瞬発型。",bg:"linear-gradient(135deg,#f57c00,#ef6c00)"},
+    "fast-emo":{name:"⚡Fast-Emo（社交ターボ型）",img:"image/fast-emo.png",desc:"ノリの良さが魅力の瞬発型。",bg:"linear-gradient(135deg,#f57c00,#ff9800)"},
     "slow-cool":{name:"🌿Slow-Cool（慎重ハイブリッド型）",img:"image/slow-cool.png",desc:"穏やかで安定したタイプ。",bg:"linear-gradient(135deg,#2e7d32,#1b5e20)"}
   };
 
@@ -300,12 +272,13 @@ function restart(){
   document.getElementById("intakeInput").style.display="none";
 }
 </script>
+
 <script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>{
     navigator.serviceWorker.register('service-worker.js')
-    .then(reg => console.log('✅ ServiceWorker registered:', reg))
-    .catch(err => console.log('❌ SW registration failed:', err));
+    .then(reg=>console.log('✅ ServiceWorker registered:',reg))
+    .catch(err=>console.log('❌ SW registration failed:',err));
   });
 }
 </script>
