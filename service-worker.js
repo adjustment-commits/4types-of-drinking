@@ -1,4 +1,4 @@
-const CACHE_NAME = "alti-cache-v1";
+const CACHE_NAME = "alti-drink-type-v3";
 const urlsToCache = [
   "index.html",
   "style.css",
@@ -12,17 +12,14 @@ const urlsToCache = [
   "image/slow-cool.png"
 ];
 
-// インストール時にキャッシュ
+// ✅ インストール時にキャッシュ
 self.addEventListener("install", event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      console.log("🟢 キャッシュ完了");
-      return cache.addAll(urlsToCache);
-    })
+    caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
   );
 });
 
-// リクエスト取得時にキャッシュ利用
+// ✅ オフライン対応
 self.addEventListener("fetch", event => {
   event.respondWith(
     caches.match(event.request).then(response => {
@@ -31,7 +28,7 @@ self.addEventListener("fetch", event => {
   );
 });
 
-// 古いキャッシュ削除
+// ✅ 古いキャッシュを削除
 self.addEventListener("activate", event => {
   event.waitUntil(
     caches.keys().then(keys => {
