@@ -142,6 +142,49 @@ img {width:100%; max-width:320px; border-radius:10px;}
     margin-top: 20px;
     margin-bottom: 18px;
   }
+  .type-table {
+  width: 100%;
+  max-width: 700px;
+  border-collapse: collapse;
+  margin: 12px auto;
+  background: rgba(255,255,255,0.08);
+  border-radius: 12px;
+  overflow: hidden;
+  font-size: 0.9em;
+}
+
+.type-table th, .type-table td {
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 10px;
+  text-align: left;
+}
+
+.type-table th {
+  background: rgba(255,255,255,0.2);
+  font-weight: 700;
+}
+
+.type-table td:first-child {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+#toggleTypeInfo {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin: 20px auto;
+  background: linear-gradient(90deg,#ffb300,#ff7043);
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+#toggleTypeInfo:hover { transform: scale(1.05); }
 }
 </style>
 </head>
@@ -225,7 +268,43 @@ img {width:100%; max-width:320px; border-radius:10px;}
 
   <button onclick="restart()">もう一度診断する</button>
 </div>
+<!-- ▼ タイプ別解説ボックス -->
+<div id="typeInfoBox" class="fade-in" style="display:none;">
+  <h3>🧠 演出トーン（例）</h3>
+  <table class="type-table">
+    <thead>
+      <tr><th>タイプ</th><th>SAFE</th><th>WARN</th><th>DANGER</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>🔥Slow-Emo</td>
+        <td>笑顔でグラスを掲げる</td>
+        <td>顔が赤く少しテンション高め</td>
+        <td>顔真っ赤＋氷水を手に冷静になろうとする</td>
+      </tr>
+      <tr>
+        <td>⚡Fast-Emo</td>
+        <td>ノリよく乾杯</td>
+        <td>少し酔い気味でピース</td>
+        <td>グラグラしてる＋友人に止められる</td>
+      </tr>
+      <tr>
+        <td>❄️Fast-Cool</td>
+        <td>クールに軽く一杯</td>
+        <td>少し顔が赤く理性を保つ</td>
+        <td>手で「今日はここまで」サイン</td>
+      </tr>
+      <tr>
+        <td>🌿Slow-Cool</td>
+        <td>落ち着いて談笑</td>
+        <td>少し眠そうにゆったり</td>
+        <td>背景がぼやけてウトウト</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
+<button id="toggleTypeInfo" style="margin-top:20px;">タイプ別の特徴を見る</button>
 <script>
 const alcoholTable={beer:20,chu:20,high:20,sake:22,whisky:19};
 
@@ -303,6 +382,17 @@ function restart(){
   ['beer','chu','high','sake','whisky'].forEach(id=>document.getElementById(id).value=0);
   document.getElementById("intakeInput").style.display="none";
 }
+  document.getElementById("toggleTypeInfo").addEventListener("click", function() {
+  const box = document.getElementById("typeInfoBox");
+  if (box.style.display === "none") {
+    box.style.display = "block";
+    this.textContent = "閉じる";
+  } else {
+    box.style.display = "none";
+    this.textContent = "タイプ別の特徴を見る";
+  }
+});
+
 </script>
 
 <script>
