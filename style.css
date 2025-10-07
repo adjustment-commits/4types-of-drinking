@@ -1,1 +1,265 @@
+:root {
+  --radius:14px;
+  --shadow:0 6px 16px rgba(0,0,0,0.3);
+}
 
+/* ====== 基本設定 ====== */
+body {
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
+  color:#fff;
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  background-size:400% 400%;
+  animation:gradientShift 15s ease infinite;
+  margin:0;
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  min-height:100vh;
+}
+
+/* ====== 見出し ====== */
+h1 {
+  text-align:center;
+  font-size:1.9em;
+  margin:20px 0 10px;
+  font-weight:700;
+  color:#ffd54f;
+  text-shadow:0 2px 6px rgba(0,0,0,0.6);
+}
+
+/* ====== 質問ブロック ====== */
+.question, .option-group {
+  background:rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.2);
+  border-radius:12px;
+  padding:14px;
+  margin:12px 0;
+  box-shadow:var(--shadow);
+}
+label {
+  margin-right:12px;
+  display:inline-block;
+}
+input[type="radio"],
+input[type="checkbox"],
+input[type="number"] {
+  accent-color:#ffb300;
+}
+
+/* ====== 診断ボタン ====== */
+button {
+  display:block;
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  font-size:1.1em;
+  font-weight:bold;
+  background:linear-gradient(90deg,#ffd54f,#ff7043,#e53935);
+  background-size:300% 300%;
+  animation:gradientFlow 8s ease infinite;
+  color:#fff;
+  cursor:pointer;
+  box-shadow:0 6px 16px rgba(0,0,0,0.4);
+  transition:transform 0.2s ease;
+}
+button:hover {
+  transform:scale(1.03);
+}
+
+/* ====== 結果非表示初期設定 ====== */
+.result {
+  text-align:center;
+  display:none;
+}
+img {
+  width:100%;
+  max-width:320px;
+  border-radius:10px;
+}
+.desc {
+  margin-top:10px;
+  font-size:0.95em;
+  line-height:1.6;
+}
+
+/* ====== 飲酒予定入力欄 ====== */
+#intakeInput {
+  max-width:560px;
+  width:100%;
+  margin-top:20px;
+}
+.drinkRow {
+  display:grid;
+  grid-template-columns:minmax(160px,1fr) 60px 40px;
+  align-items:center;
+  gap:6px;
+  margin:10px 0;
+}
+.drinkRow input[type=number] {
+  width:100%;
+  height:34px;
+  text-align:center;
+  border-radius:8px;
+  border:1px solid rgba(0,0,0,.15);
+  background:rgba(255,255,255,.9);
+  color:#111;
+}
+.drinkRow .label {
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.drinkRow .unit {
+  text-align:left;
+  opacity:.9;
+  font-weight:600;
+  font-size:1em;
+  padding-left:10px;
+}
+
+/* ====== スマホ最適化 ====== */
+@media(max-width:480px){
+  body{padding:10px;}
+  h1{font-size:1.5em;}
+  .drinkRow{
+    grid-template-columns:minmax(120px,1fr)50px40px;
+    gap:4px;
+  }
+  .drinkRow .unit{padding-left:14px;font-size:0.9em;}
+}
+
+/* ====== 結果ボックス ====== */
+.result-box {
+  background:linear-gradient(135deg,#111,#000);
+  color:#fff;
+  border-radius:14px;
+  padding:18px 20px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.4);
+  margin:20px auto;
+  max-width:500px;
+}
+.result-box p {
+  color:#fff;
+  text-shadow:0 1px 4px rgba(0,0,0,0.5);
+}
+
+/* ====== 結果タイトル ====== */
+.result h2 {
+  font-size:1.8em;
+  margin-top:20px;
+  margin-bottom:12px;
+  text-align:center;
+  text-shadow:0 2px 6px rgba(0,0,0,0.6);
+}
+.result img {
+  margin-top:16px;
+  margin-bottom:12px;
+  max-width:320px;
+  width:90%;
+  height:auto;
+  border-radius:10px;
+}
+
+/* ====== モーダル背景とカード ====== */
+.modal {
+  display:none;
+  position:fixed;
+  z-index:50;
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.7);
+  backdrop-filter:blur(6px);
+  justify-content:center;
+  align-items:center;
+  overflow-y:auto;
+  animation:fadeUp 0.6s ease forwards;
+}
+.modal-content {
+  background:rgba(0,0,0,0.85);
+  border-radius:16px;
+  padding:20px 22px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.6);
+  max-width:640px;
+  width:90%;
+  animation:cardPop 0.6s ease forwards;
+  transform:translateY(20px);
+}
+@keyframes cardPop {
+  to {transform:translateY(0);opacity:1;}
+}
+
+/* ====== 閉じるボタン ====== */
+.close-btn {
+  background:none;
+  border:none;
+  color:#fff;
+  font-size:1.6em;
+  font-weight:bold;
+  position:absolute;
+  right:24px;
+  top:14px;
+  cursor:pointer;
+}
+
+/* ====== タイプ別カード ====== */
+.type-card {
+  background:rgba(255,255,255,0.08);
+  color:#fff;
+  border-radius:14px;
+  padding:14px 16px;
+  margin:16px auto;
+  box-shadow:0 8px 20px rgba(0,0,0,0.4);
+  text-align:left;
+}
+.type-card h4 {
+  text-align:center;
+  font-size:1.1em;
+  color:#ffd54f;
+  margin:10px 0 6px;
+}
+.type-card ul {
+  list-style:none;
+  padding:0;
+  margin:8px 0 0;
+  font-size:0.9em;
+  line-height:1.6;
+}
+.type-card ul li b {color:#ffb300;}
+.type-img {
+  display:block;
+  width:100%;
+  max-width:260px;
+  margin:0 auto 10px;
+  border-radius:10px;
+}
+
+/* ====== タイプ別ボタン ====== */
+.info-btn {
+  display:block;
+  width:90%;
+  max-width:320px;
+  margin:30px auto;
+  padding:14px;
+  font-weight:bold;
+  border:none;
+  border-radius:10px;
+  background:linear-gradient(90deg,#ffb300,#ff7043);
+  color:#fff;
+  cursor:pointer;
+  box-shadow:0 6px 14px rgba(0,0,0,0.4);
+  transition:transform 0.2s, box-shadow 0.2s;
+}
+.info-btn:hover {
+  transform:scale(1.05);
+  box-shadow:0 8px 18px rgba(0,0,0,0.5);
+}
+
+/* ====== アニメーション ====== */
+.fade-in{opacity:0;transform:translateY(8px);animation:fadeUp 1.2s ease forwards;}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
+@keyframes gradientShift{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+@keyframes gradientFlow{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
