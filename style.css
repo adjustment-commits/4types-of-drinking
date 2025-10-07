@@ -149,7 +149,7 @@ img{width:100%; max-width:320px; border-radius:10px}
 
 /* 各タイプ別の背景テーマ */
 .type-card:nth-of-type(1) { background:linear-gradient(135deg,#7a2e00,#ff6a00,#ffb347); }
-.type-card:nth-of-type(2) { background:linear-gradient(135deg,#b85b00,#ff9500,#ffd27f); }
+.type-card:nth-of-type(2) { background:linear-gradient(135deg,#4a2600,#d97700,#ffb84d); }
 .type-card:nth-of-type(3) { background:linear-gradient(135deg,#1c313a,#304ffe,#81d4fa); }
 .type-card:nth-of-type(4) { background:linear-gradient(135deg,#003300,#1b5e20,#66bb6a); }
 
