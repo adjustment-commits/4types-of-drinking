@@ -106,19 +106,55 @@
   <button onclick="restart()">もう一度診断する</button>
 </div>
 
-<!-- 🔹 タイプ別特徴モーダル -->
+<!-- ===== モーダル ===== -->
 <div id="typeModal" class="modal">
   <div class="modal-content">
     <button class="close-btn" id="closeModal">×</button>
     <h3 style="text-align:center;">🧠 タイプ別特徴</h3>
 
-    <div class="type-card"><img src="image/slow-emo.png" class="type-img"><h4>🔥Slow-Emo（感情ジェット型）</h4><ul><li><b>SAFE：</b>笑顔でグラスを掲げる</li><li><b>WARN：</b>顔が赤く少しテンション高め</li><li><b>DANGER：</b>顔真っ赤＋氷水で冷静になろうとする</li></ul></div>
-    <div class="type-card"><img src="image/fast-emo.png" class="type-img"><h4>⚡Fast-Emo（社交ターボ型）</h4><ul><li><b>SAFE：</b>ノリよく乾杯</li><li><b>WARN：</b>少し酔い気味でピース</li><li><b>DANGER：</b>グラグラ＋友人に止められる</li></ul></div>
-    <div class="type-card"><img src="image/fast-cool.png" class="type-img"><h4>❄️Fast-Cool（理性スプリント型）</h4><ul><li><b>SAFE：</b>クールに軽く一杯</li><li><b>WARN：</b>顔が赤く理性を保つ</li><li><b>DANGER：</b>手で「今日はここまで」サイン</li></ul></div>
-    <div class="type-card"><img src="image/slow-cool.png" class="type-img"><h4>🌿Slow-Cool（慎重ハイブリッド型）</h4><ul><li><b>SAFE：</b>落ち着いて談笑</li><li><b>WARN：</b>少し眠そうにゆったり</li><li><b>DANGER：</b>ウトウト＋笑顔</li></ul></div>
+    <div id="typeCards">
+      <div class="type-card">
+        <img src="image/slow-emo.png" class="type-img">
+        <h4>🔥Slow-Emo（感情ジェット型）</h4>
+        <ul>
+          <li><b>SAFE：</b>笑顔でグラスを掲げる</li>
+          <li><b>WARN：</b>顔が赤く少しテンション高め</li>
+          <li><b>DANGER：</b>顔真っ赤＋氷水で冷静になろうとする</li>
+        </ul>
+      </div>
+
+      <div class="type-card">
+        <img src="image/fast-emo.png" class="type-img">
+        <h4>⚡Fast-Emo（社交ターボ型）</h4>
+        <ul>
+          <li><b>SAFE：</b>ノリよく乾杯</li>
+          <li><b>WARN：</b>少し酔い気味でピース</li>
+          <li><b>DANGER：</b>グラグラ＋友人に止められる</li>
+        </ul>
+      </div>
+
+      <div class="type-card">
+        <img src="image/fast-cool.png" class="type-img">
+        <h4>❄️Fast-Cool（理性スプリント型）</h4>
+        <ul>
+          <li><b>SAFE：</b>クールに軽く一杯</li>
+          <li><b>WARN：</b>顔が赤く理性を保つ</li>
+          <li><b>DANGER：</b>手で「今日はここまで」サイン</li>
+        </ul>
+      </div>
+
+      <div class="type-card">
+        <img src="image/slow-cool.png" class="type-img">
+        <h4>🌿Slow-Cool（慎重ハイブリッド型）</h4>
+        <ul>
+          <li><b>SAFE：</b>落ち着いて談笑</li>
+          <li><b>WARN：</b>少し眠そうにゆったり</li>
+          <li><b>DANGER：</b>ウトウト＋笑顔</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
-
 <!-- ボタン -->
 <button id="toggleTypeCards" class="info-btn">タイプ別特徴を見る</button>
 
