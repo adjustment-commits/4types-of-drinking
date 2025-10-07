@@ -81,95 +81,12 @@
     <p id="doseResult" class="desc"></p>
   </div>
 
-  <div id="intakeInput" class="fade-in">
-    <h3>🍶 飲む予定を入力</h3>
-
-    <div class="drinkRow"><span class="label">🍺 ビール（20g/本）</span>
-      <input type="number" id="beer" min="0" step="1" value="0"><span class="unit">本</span></div>
-    <div class="drinkRow"><span class="label">🍹 酎ハイ（20g/缶）</span>
-      <input type="number" id="chu" min="0" step="1" value="0"><span class="unit">缶</span></div>
-    <div class="drinkRow"><span class="label">🥃 ハイボール（20g/杯）</span>
-      <input type="number" id="high" min="0" step="1" value="0"><span class="unit">杯</span></div>
-    <div class="drinkRow"><span class="label">🍶 日本酒（22g/合）</span>
-      <input type="number" id="sake" min="0" step="1" value="0"><span class="unit">合</span></div>
-    <div class="drinkRow"><span class="label">🟤 ウイスキー（19g/杯）</span>
-      <input type="number" id="whisky" min="0" step="1" value="0"><span class="unit">杯</span></div>
-
-    <button type="button" onclick="calcTotalIntake()">合計で判定する</button>
-    <p id="intakeResult" class="desc"></p>
-    <p id="advice" class="desc" style="font-style:italic;"></p>
-  </div>
-
-  <p class="desc" style="font-size:0.8em;color:#ccc;">
-    ※ この診断はあくまで一般的な目安です。<br>
-    健康状態や個人差により安全量は異なります。<br>
-    無理のない範囲で、楽しくスマートに飲みましょう。
-  </p>
-
-  <button onclick="restart()">もう一度診断する</button>
-</div>
-
-<!-- 🔹 タイプ別特徴モーダル -->
-<div id="typeModal" class="modal">
-  <div class="modal-content">
-    <button class="close-btn" id="closeTypeCards">×</button>
-    <h3>🧠 タイプ別特徴</h3>
-
-    <div class="type-card">
-      <img src="image/slow-emo.png" alt="Slow-Emo" class="type-img">
-      <h4>🔥Slow-Emo（感情ジェット型）</h4>
-      <ul>
-        <li><b>SAFE：</b>笑顔でグラスを掲げる</li>
-        <li><b>WARN：</b>顔が赤く少しテンション高め</li>
-        <li><b>DANGER：</b>顔真っ赤＋氷水で冷静になろうとする</li>
-      </ul>
-    </div>
-
-    <div class="type-card">
-      <img src="image/fast-emo.png" alt="Fast-Emo" class="type-img">
-      <h4>⚡Fast-Emo（社交ターボ型）</h4>
-      <ul>
-        <li><b>SAFE：</b>ノリよく乾杯</li>
-        <li><b>WARN：</b>少し酔い気味でピース</li>
-        <li><b>DANGER：</b>グラグラ＋友人に止められる</li>
-      </ul>
-    </div>
-
-    <div class="type-card">
-      <img src="image/fast-cool.png" alt="Fast-Cool" class="type-img">
-      <h4>❄️Fast-Cool（理性スプリント型）</h4>
-      <ul>
-        <li><b>SAFE：</b>クールに軽く一杯</li>
-        <li><b>WARN：</b>顔が赤く理性を保つ</li>
-        <li><b>DANGER：</b>手で「今日はここまで」サイン</li>
-      </ul>
-    </div>
-
-    <div class="type-card">
-      <img src="image/slow-cool.png" alt="Slow-Cool" class="type-img">
-      <h4>🌿Slow-Cool（慎重ハイブリッド型）</h4>
-      <ul>
-        <li><b>SAFE：</b>落ち着いて談笑</li>
-        <li><b>WARN：</b>少し眠そうにゆったり</li>
-        <li><b>DANGER：</b>ウトウト＋笑顔</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<!-- 🔹 モーダル起動ボタン -->
-<button id="toggleTypeCards" class="info-btn">タイプ別特徴を見る</button>
-
-<script src="main.js"></script>
-</body>
-</html>
-
-:root {
+  :root {
   --radius:14px;
   --shadow:0 6px 16px rgba(0,0,0,0.3);
 }
 
-/* ====== 全体 ====== */
+/* ===== ベース設定 ===== */
 body {
   font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
   color:#fff;
@@ -193,7 +110,7 @@ h1 {
   text-shadow:0 2px 6px rgba(0,0,0,0.6);
 }
 
-/* ====== 質問カード ====== */
+/* ===== 質問ブロック ===== */
 .question, .option-group {
   background:rgba(255,255,255,0.1);
   border:1px solid rgba(255,255,255,0.2);
@@ -203,10 +120,16 @@ h1 {
   box-shadow:var(--shadow);
 }
 
-label {margin-right:12px; display:inline-block;}
-input[type="radio"], input[type="checkbox"], input[type="number"] {accent-color:#ffb300;}
+label {
+  margin-right:12px;
+  display:inline-block;
+}
 
-/* ====== ボタン ====== */
+input[type="radio"], input[type="checkbox"], input[type="number"] {
+  accent-color:#ffb300;
+}
+
+/* ===== ボタン ===== */
 button {
   display:block;
   width:100%;
@@ -225,20 +148,28 @@ button {
 }
 button:hover {transform:scale(1.03);}
 
-/* ====== 結果部分 ====== */
+/* ===== 結果表示 ===== */
 .result {
   text-align:center;
   display:none;
 }
-img {width:100%; max-width:320px; border-radius:10px;}
-.desc {margin-top:10px; font-size:0.95em; line-height:1.6;}
-
 .result h2 {
   font-size:1.8em;
-  margin-top:20px;
-  margin-bottom:12px;
-  text-align:center;
+  margin:20px 0 12px;
   text-shadow:0 2px 6px rgba(0,0,0,0.6);
+}
+.result img {
+  margin-top:16px;
+  margin-bottom:12px;
+  max-width:320px;
+  width:90%;
+  border-radius:10px;
+}
+
+.desc {
+  margin-top:10px;
+  font-size:0.95em;
+  line-height:1.6;
 }
 
 .result-box {
@@ -250,13 +181,13 @@ img {width:100%; max-width:320px; border-radius:10px;}
   margin:20px auto;
   max-width:500px;
 }
-.result-box p {
-  color:#fff;
-  text-shadow:0 1px 4px rgba(0,0,0,0.5);
-}
 
-/* ====== 飲酒量入力行 ====== */
-#intakeInput {max-width:560px;width:100%;margin-top:20px;}
+/* ===== 飲酒量入力欄 ===== */
+#intakeInput {
+  max-width:560px;
+  width:100%;
+  margin-top:20px;
+}
 
 .drinkRow {
   display:grid;
@@ -284,10 +215,10 @@ img {width:100%; max-width:320px; border-radius:10px;}
   opacity:.9;
   font-weight:600;
   font-size:1em;
-  padding-left:10px; /* ← 「本」などと被らないように調整 */
+  padding-left:10px; /* ← 「本」など被り防止 */
 }
 
-/* ====== スマホ表示最適化 ====== */
+/* ===== スマホ対応 ===== */
 @media(max-width:480px){
   body{padding:10px;}
   h1{font-size:1.5em;}
@@ -295,10 +226,13 @@ img {width:100%; max-width:320px; border-radius:10px;}
     grid-template-columns:minmax(120px,1fr)50px40px;
     gap:4px;
   }
-  .drinkRow .unit{padding-left:14px; font-size:0.9em;}
+  .drinkRow .unit{
+    padding-left:14px;
+    font-size:0.9em;
+  }
 }
 
-/* ====== モーダル背景（タイプ別カード浮き上がり） ====== */
+/* ===== モーダル（タイプ別特徴） ===== */
 .modal {
   display:none;
   position:fixed;
@@ -316,19 +250,18 @@ img {width:100%; max-width:320px; border-radius:10px;}
 }
 
 .modal-content {
-  background:rgba(0,0,0,0.85);
+  position:relative;
+  background:rgba(0,0,0,0.88);
   border-radius:16px;
   padding:20px 22px 30px;
   box-shadow:0 10px 30px rgba(0,0,0,0.6);
   max-width:640px;
   width:90%;
-  position:relative;
-  animation:cardPop 0.6s ease forwards;
   transform:translateY(20px);
+  animation:cardPop 0.6s ease forwards;
 }
 @keyframes cardPop {to {transform:translateY(0);opacity:1;}}
 
-/* モーダル内の閉じるボタン */
 .close-btn {
   background:none;
   border:none;
@@ -336,12 +269,12 @@ img {width:100%; max-width:320px; border-radius:10px;}
   font-size:1.6em;
   font-weight:bold;
   position:absolute;
-  right:24px;
-  top:14px;
+  right:22px;
+  top:12px;
   cursor:pointer;
 }
 
-/* ====== タイプカード ====== */
+/* ===== タイプ別カード ===== */
 .type-card {
   background:rgba(255,255,255,0.08);
   color:#fff;
@@ -349,7 +282,6 @@ img {width:100%; max-width:320px; border-radius:10px;}
   padding:14px 16px;
   margin:16px auto;
   box-shadow:0 8px 20px rgba(0,0,0,0.4);
-  text-align:left;
 }
 .type-card h4 {
   text-align:center;
@@ -373,12 +305,12 @@ img {width:100%; max-width:320px; border-radius:10px;}
   border-radius:10px;
 }
 
-/* ====== タイプ別ボタン ====== */
+/* ===== タイプ別ボタン（中央固定） ===== */
 .info-btn {
   display:block;
   width:90%;
   max-width:320px;
-  margin:30px auto;
+  margin:40px auto 20px;
   padding:14px;
   font-weight:bold;
   border:none;
@@ -394,16 +326,17 @@ img {width:100%; max-width:320px; border-radius:10px;}
   box-shadow:0 8px 18px rgba(0,0,0,0.5);
 }
 
-/* ====== アニメーション ====== */
+/* ===== アニメーション ===== */
 .fade-in{opacity:0;transform:translateY(8px);animation:fadeUp 1.2s ease forwards;}
 @keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
 @keyframes gradientShift{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
 @keyframes gradientFlow{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
 
-// ======== アルコール量テーブル ========
+  // ======== ALTI 飲酒タイプ診断ロジック v2.1 ========
+
 const alcoholTable = { beer: 20, chu: 20, high: 20, sake: 22, whisky: 19 };
 
-// ======== 診断結果表示 ========
+// --- 診断 ---
 function showResult() {
   const answeredQ = document.querySelectorAll('input[name^="q"]:checked').length;
   if (answeredQ < 10) {
@@ -411,49 +344,53 @@ function showResult() {
     return;
   }
 
+  // スコア集計
   let score = { slow: 0, fast: 0, emo: 0, cool: 0 };
-  document.querySelectorAll('input[name^="q"]:checked').forEach(a => score[a.value]++);
+  document.querySelectorAll('input[name^="q"]:checked')
+    .forEach(a => score[a.value]++);
 
   const axis1 = score.slow > score.fast ? "slow" : "fast";
   const axis2 = score.emo > score.cool ? "emo" : "cool";
   const type = axis1 + "-" + axis2;
 
+  // ベース量
   const baseDoseTable = {
     "slow-emo": 30,
     "fast-emo": 40,
     "fast-cool": 45,
     "slow-cool": 35
   };
-
   let grams = baseDoseTable[type];
+
+  // コンディション倍率
   const cond = parseFloat(document.querySelector('input[name="condition"]:checked').value);
   const party = document.getElementById("partyMode").checked ? 1.5 : 1.0;
   grams = Math.round(grams * cond * party);
 
-  // ======== 各タイプの背景カラー・説明 ========
+  // タイプ別設定
   const data = {
     "slow-emo": {
       name: "🔥Slow-Emo（感情ジェット型）",
       img: "image/slow-emo.png",
       desc: "感情が燃えやすく、ペースを見失いやすいタイプ。",
-      bg: "linear-gradient(135deg,#a84900,#3a1d00)"
+      bg: "linear-gradient(135deg,#a94400,#3b1700)"
     },
     "fast-emo": {
       name: "⚡Fast-Emo（社交ターボ型）",
       img: "image/fast-emo.png",
-      desc: "ノリの良さが魅力の瞬発型。テンションに任せすぎ注意。",
-      bg: "linear-gradient(135deg,#a7523b,#472019)"
+      desc: "ノリの良さが魅力の瞬発型。",
+      bg: "linear-gradient(135deg,#b55a38,#411c14)"
     },
     "fast-cool": {
       name: "❄️Fast-Cool（理性スプリント型）",
       img: "image/fast-cool.png",
-      desc: "代謝が速くクールな理性タイプ。飲み方上手の代表格。",
+      desc: "代謝が速くクールな理性タイプ。",
       bg: "linear-gradient(135deg,#455a64,#1c313a)"
     },
     "slow-cool": {
       name: "🌿Slow-Cool（慎重ハイブリッド型）",
       img: "image/slow-cool.png",
-      desc: "穏やかで安定したタイプ。落ち着いた大人の飲み方が魅力。",
+      desc: "穏やかで安定したタイプ。",
       bg: "linear-gradient(135deg,#2e7d32,#0d5302)"
     }
   };
@@ -464,6 +401,7 @@ function showResult() {
   document.getElementById("typeImg").src = info.img;
   document.getElementById("typeDesc").textContent = info.desc;
 
+  // 推奨摂取量計算
   const beer = Math.round(grams / 20),
         chu = Math.round(grams / 20),
         high = Math.round(grams / 20),
@@ -475,14 +413,14 @@ function showResult() {
     🍺ビール:${beer}本 🍹酎ハイ:${chu}缶 🥃ハイボール:${high}杯<br>
     🍶日本酒:${sake}合 🟤ウイスキー:${whisky}杯`;
 
+  // 表示切替
   document.getElementById("quiz").style.display = "none";
   document.getElementById("result").style.display = "block";
   document.getElementById("intakeInput").style.display = "block";
-
   window.lastDose = { grams, type };
 }
 
-// ======== 合計アルコール計算 ========
+// --- 合計摂取量の判定 ---
 function calcTotalIntake() {
   let total = 0;
   for (let key in alcoholTable) {
@@ -497,15 +435,21 @@ function calcTotalIntake() {
   if (total <= safe) {
     msg = `🍀 合計 ${total}g。理想的なペースです。`;
     color = "#2e7d32";
-    advice = type.includes("emo") ? "水を多めにとって余韻を楽しもう。" : "軽い食事と一緒にリラックスを。";
+    advice = type.includes("emo")
+      ? "水を多めにとって余韻を楽しもう。"
+      : "軽い食事と一緒にリラックスを。";
   } else if (total <= safe * 1.5) {
     msg = `⚠️ ${total}g（やや超過）。少しペースを落とそう。`;
     color = "#f9a825";
-    advice = type.includes("emo") ? "途中でノンアルを挟もう！" : "油ものを控えて胃を守ろう。";
+    advice = type.includes("emo")
+      ? "途中でノンアルを挟もう！"
+      : "油ものを控えて胃を守ろう。";
   } else {
     msg = `🚫 ${total}g（危険域）。今日はブレーキを。`;
     color = "#c62828";
-    advice = type.includes("emo") ? "一度深呼吸してペースダウン。" : "水分をしっかり取って早めの休息を。";
+    advice = type.includes("emo")
+      ? "一度深呼吸してペースダウン。"
+      : "水分をしっかり取って早めの休息を。";
   }
 
   const out = document.getElementById("intakeResult");
@@ -514,36 +458,34 @@ function calcTotalIntake() {
   document.getElementById("advice").textContent = advice;
 }
 
-// ======== 再スタート ========
+// --- 再スタート ---
 function restart() {
   document.body.style.background = "linear-gradient(135deg,#0f2027,#203a43,#2c5364)";
   document.getElementById("result").style.display = "none";
   document.getElementById("quiz").style.display = "block";
-  document.querySelectorAll('input[type=radio],input[type=checkbox]').forEach(el => el.checked = false);
-  ['beer','chu','high','sake','whisky'].forEach(id=>document.getElementById(id).value=0);
+  document.querySelectorAll('input[type=radio],input[type=checkbox]')
+    .forEach(el => el.checked = false);
+  ['beer', 'chu', 'high', 'sake', 'whisky']
+    .forEach(id => document.getElementById(id).value = 0);
   document.getElementById("intakeInput").style.display = "none";
 }
 
-// ======== タイプ別特徴モーダル ========
+// --- モーダル制御（タイプ別特徴） ---
 const modal = document.getElementById("typeModal");
 const toggleBtn = document.getElementById("toggleTypeCards");
 const closeBtn = document.getElementById("closeTypeCards");
 
 toggleBtn.addEventListener("click", () => {
   modal.style.display = "flex";
-  modal.style.animation = "fadeUp 0.6s ease forwards";
 });
-
 closeBtn.addEventListener("click", () => {
   modal.style.display = "none";
 });
-
-// 背景クリックでも閉じる
-window.addEventListener("click", e => {
+window.addEventListener("click", (e) => {
   if (e.target === modal) modal.style.display = "none";
 });
 
-// ======== PWA登録 ========
+// --- PWA登録 ---
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('service-worker.js')
