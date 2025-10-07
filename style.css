@@ -205,36 +205,62 @@ img {
   cursor:pointer;
 }
 
-/* ====== タイプ別カード ====== */
+/* タイプカード（Luxury Ver.）*/
 .type-card {
-  background:rgba(255,255,255,0.08);
-  color:#fff;
-  border-radius:14px;
-  padding:14px 16px;
-  margin:16px auto;
-  box-shadow:0 8px 20px rgba(0,0,0,0.4);
-  text-align:left;
+  background: linear-gradient(145deg, rgba(20,20,20,0.9), rgba(0,0,0,0.8));
+  border: 1px solid rgba(255,215,0,0.25);
+  border-radius: 16px;
+  padding: 18px 20px;
+  margin: 20px auto;
+  color: #fff;
+  box-shadow:
+    inset 0 0 10px rgba(255,255,255,0.05),
+    0 4px 20px rgba(0,0,0,0.6),
+    0 0 18px rgba(255,215,0,0.08);
+  backdrop-filter: blur(6px);
+  text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.type-card:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 8px 24px rgba(255,215,0,0.25),
+    0 0 18px rgba(255,215,0,0.1);
 }
 .type-card h4 {
-  text-align:center;
-  font-size:1.1em;
-  color:#ffd54f;
-  margin:10px 0 6px;
+  text-align: center;
+  font-size: 1.2em;
+  color: #ffd700;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-shadow:
+    0 0 6px rgba(255,215,0,0.6),
+    0 0 12px rgba(255,215,0,0.3);
+  margin: 12px 0 10px;
 }
 .type-card ul {
-  list-style:none;
-  padding:0;
-  margin:8px 0 0;
-  font-size:0.9em;
-  line-height:1.6;
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+  font-size: 0.95em;
+  line-height: 1.6;
 }
-.type-card ul li b {color:#ffb300;}
+.type-card ul li {
+  border-left: 3px solid rgba(255,215,0,0.3);
+  padding-left: 8px;
+  margin-bottom: 6px;
+}
+.type-card ul li b {
+  color: #ffea80;
+  text-shadow: 0 0 6px rgba(255,215,0,0.3);
+}
 .type-img {
-  display:block;
-  width:100%;
-  max-width:260px;
-  margin:0 auto 10px;
-  border-radius:10px;
+  display: block;
+  width: 100%;
+  max-width: 240px;
+  margin: 0 auto 12px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(255,215,0,0.15);
 }
 
 /* ====== タイプ別ボタン ====== */
