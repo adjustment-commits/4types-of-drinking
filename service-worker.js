@@ -1,4 +1,4 @@
-const CACHE_NAME = "alti-drink-check-v1.0";
+const CACHE_NAME = "alti-cache-v1";
 const urlsToCache = [
   "index.html",
   "style.css",
@@ -12,14 +12,17 @@ const urlsToCache = [
   "image/slow-cool.png"
 ];
 
-// 🔹 インストール時にキャッシュ
+// インストール時にキャッシュ
 self.addEventListener("install", event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
+    caches.open(CACHE_NAME).then(cache => {
+      console.log("🟢 キャッシュ完了");
+      return cache.addAll(urlsToCache);
+    })
   );
 });
 
-// 🔹 リクエスト時にキャッシュを優先
+// リクエスト取得時にキャッシュ利用
 self.addEventListener("fetch", event => {
   event.respondWith(
     caches.match(event.request).then(response => {
@@ -28,18 +31,13 @@ self.addEventListener("fetch", event => {
   );
 });
 
-// 🔹 古いキャッシュを削除
+// 古いキャッシュ削除
 self.addEventListener("activate", event => {
-  const whitelist = [CACHE_NAME];
   event.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(
-        keys.map(key => {
-          if (!whitelist.includes(key)) {
-            return caches.delete(key);
-          }
-        })
-      )
-    )
+    caches.keys().then(keys => {
+      return Promise.all(
+        keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
+      );
+    })
   );
 });
