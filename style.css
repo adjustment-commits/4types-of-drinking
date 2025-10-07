@@ -176,6 +176,13 @@ img{width:100%; max-width:320px; border-radius:10px}
 /* animations */
 .fade-in{opacity:0; transform:translateY(8px); animation:fadeUp 1.2s ease forwards}
 @keyframes fadeUp{to{opacity:1; transform:translateY(0)}}
+/* === 表示が消える現象対策（特にFast-Emoで起こる） === */
+#intakeInput {
+  position: relative;
+  z-index: 10;              /* 最前面に */
+  opacity: 0.85;            /* 初期状態からやや見える */
+  animation: fadeUp 1s ease forwards;
+}
 @keyframes gradientShift{
   0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%}
 }
