@@ -7,178 +7,56 @@
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0f2027">
 <link rel="apple-touch-icon" href="icons-192.png">
-
-<style>
-:root {
-  --radius:14px;
-  --shadow:0 6px 16px rgba(0,0,0,0.3);
-}
-body {
-  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
-  color:#fff;
-  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-  background-size:400% 400%;
-  animation:gradientShift 15s ease infinite;
-  margin:0;
-  padding:20px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  min-height:100vh;
-}
-h1 {
-  text-align:center;
-  font-size:1.9em;
-  margin:20px 0 10px;
-  font-weight:700;
-  color:#ffd54f;
-  text-shadow:0 2px 6px rgba(0,0,0,0.6);
-}
-.question, .option-group {
-  background:rgba(255,255,255,0.1);
-  border:1px solid rgba(255,255,255,0.2);
-  border-radius:12px;
-  padding:14px;
-  margin:12px 0;
-  box-shadow:var(--shadow);
-}
-label {margin-right:12px; display:inline-block;}
-input[type="radio"], input[type="checkbox"], input[type="number"] {accent-color:#ffb300;}
-button {
-  display:block; width:100%; padding:14px;
-  border:none; border-radius:12px; font-size:1.1em; font-weight:bold;
-  background:linear-gradient(90deg,#ffd54f,#ff7043,#e53935);
-  background-size:300% 300%; animation:gradientFlow 8s ease infinite;
-  color:#fff; cursor:pointer; box-shadow:0 6px 16px rgba(0,0,0,0.4);
-  transition:transform 0.2s ease;
-}
-button:hover {transform:scale(1.03);}
-.result {text-align:center; display:none;}
-img {width:100%; max-width:320px; border-radius:10px;}
-.desc {margin-top:10px; font-size:0.95em; line-height:1.6;}
-#intakeInput{max-width:560px;width:100%;margin-top:20px;}
-
-/* 🥃 飲酒入力欄 */
-.drinkRow {
-  display:grid;
-  grid-template-columns:minmax(180px,1fr) 55px 45px;
-  align-items:center;
-  gap:10px;
-  margin:10px 0;
-}
-.drinkRow input[type=number] {
-  width:100%;
-  height:34px;
-  line-height:34px;
-  text-align:center;
-  border-radius:8px;
-  border:1px solid rgba(0,0,0,.15);
-  background:rgba(255,255,255,.9);
-  color:#111;
-}
-.drinkRow .label {
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-.drinkRow .unit {
-  text-align:left;
-  opacity:.9;
-  font-weight:600;
-  font-size:1em;
-  padding-left:4px;
-}
-
-/* ✅ スマホでの重なり修正版 */
-@media(max-width:480px){
-  .drinkRow{
-    grid-template-columns:minmax(130px,1fr)45px45px; /* ← 数字欄を狭く、単位欄を広く */
-    gap:8px;
-  }
-  .drinkRow .unit{
-    font-size:0.9em;
-    padding-left:2px;
-  }
-}
-
-/* 結果ボックス */
-.result-box {
-  background:linear-gradient(135deg,#111,#000);
-  color:#fff;
-  border-radius:14px;
-  padding:18px 20px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.4);
-  margin:20px auto;
-  max-width:500px;
-}
-.result-box p {
-  color:#fff;
-  text-shadow:0 1px 4px rgba(0,0,0,0.5);
-}
-
-/* アニメーション */
-.fade-in{opacity:0;transform:translateY(8px);animation:fadeUp 1.2s ease forwards;}
-@keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
-@keyframes gradientShift{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
-@keyframes gradientFlow{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
-
-/* 結果見出し・画像 */
-.result h2 {
-  font-size:1.6em;
-  margin-top:20px;
-  margin-bottom:12px;
-  text-align:center;
-  text-shadow:0 2px 6px rgba(0,0,0,0.6);
-}
-.result img {
-  margin-top:16px;
-  margin-bottom:12px;
-  max-width:320px;
-  width:90%;
-  height:auto;
-  border-radius:10px;
-}
-
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 <h1>ALTI飲酒タイプ診断</h1>
 
+<!-- 🔹 質問フォーム -->
 <div id="quiz">
   <form id="altiForm">
-    <!-- 🔹 質問セクション -->
     <div class="question"><p>1. お酒を飲んで10分以内に顔が赤くなることがある。</p>
       <label><input type="radio" name="q1" value="slow"> はい</label>
       <label><input type="radio" name="q1" value="fast"> いいえ</label></div>
+
     <div class="question"><p>2. ビール1杯でも動悸や息苦しさを感じることがある。</p>
       <label><input type="radio" name="q2" value="slow"> はい</label>
       <label><input type="radio" name="q2" value="fast"> いいえ</label></div>
+
     <div class="question"><p>3. 少量でも体が熱くなり、手足がほてる。</p>
       <label><input type="radio" name="q3" value="slow"> はい</label>
       <label><input type="radio" name="q3" value="fast"> いいえ</label></div>
+
     <div class="question"><p>4. 翌朝、頭痛や倦怠感が残ることが多い。</p>
       <label><input type="radio" name="q4" value="slow"> はい</label>
       <label><input type="radio" name="q4" value="fast"> いいえ</label></div>
+
     <div class="question"><p>5. お酒を飲んだ夜は眠りが浅くなりやすい。</p>
       <label><input type="radio" name="q5" value="slow"> はい</label>
       <label><input type="radio" name="q5" value="fast"> いいえ</label></div>
+
     <div class="question"><p>6. お酒を飲んだ翌日、集中力が落ちる。</p>
       <label><input type="radio" name="q6" value="slow"> はい</label>
       <label><input type="radio" name="q6" value="fast"> いいえ</label></div>
+
     <div class="question"><p>7. 周りのテンションに引っ張られやすい。</p>
       <label><input type="radio" name="q7" value="emo"> はい</label>
       <label><input type="radio" name="q7" value="cool"> いいえ</label></div>
+
     <div class="question"><p>8. 断るよりも「少しだけ飲もう」と思ってしまう。</p>
       <label><input type="radio" name="q8" value="emo"> はい</label>
       <label><input type="radio" name="q8" value="cool"> いいえ</label></div>
+
     <div class="question"><p>9. 飲み会では静かよりも盛り上がっていたい。</p>
       <label><input type="radio" name="q9" value="emo"> はい</label>
       <label><input type="radio" name="q9" value="cool"> いいえ</label></div>
+
     <div class="question"><p>10. お酒を飲むと気分が高揚しやすい。</p>
       <label><input type="radio" name="q10" value="emo"> はい</label>
       <label><input type="radio" name="q10" value="cool"> いいえ</label></div>
 
-    <!-- 🔹 体調・飲み会モード -->
+    <!-- 🔹 体調と飲み会モード -->
     <div class="option-group">
       <p>🔋 体調を選択：</p>
       <label><input type="radio" name="condition" value="1.2"> 絶好調</label>
@@ -193,161 +71,7 @@ img {width:100%; max-width:320px; border-radius:10px;}
   </form>
 </div>
 
-<!-- 🔹 タイプ別カード群 -->
-<div id="typeCards" class="fade-in" style="display:none;">
-  <h3>🧠 タイプ別特徴</h3>
-
-  <div class="type-card">
-    <img src="image/slow-emo.png" alt="Slow-Emo" class="type-img">
-    <h4>🔥Slow-Emo（感情ジェット型）</h4>
-    <ul>
-      <li><b>SAFE：</b>笑顔でグラスを掲げる</li>
-      <li><b>WARN：</b>顔が赤く少しテンション高め</li>
-      <li><b>DANGER：</b>顔真っ赤＋氷水で冷静になろうとする</li>
-    </ul>
-  </div>
-
-  <div class="type-card">
-    <img src="image/fast-emo.png" alt="Fast-Emo" class="type-img">
-    <h4>⚡Fast-Emo（社交ターボ型）</h4>
-    <ul>
-      <li><b>SAFE：</b>ノリよく乾杯</li>
-      <li><b>WARN：</b>少し酔い気味でピース</li>
-      <li><b>DANGER：</b>グラグラ＋友人に止められる</li>
-    </ul>
-  </div>
-
-  <div class="type-card">
-    <img src="image/fast-cool.png" alt="Fast-Cool" class="type-img">
-    <h4>❄️Fast-Cool（理性スプリント型）</h4>
-    <ul>
-      <li><b>SAFE：</b>クールに軽く一杯</li>
-      <li><b>WARN：</b>顔が赤く理性を保つ</li>
-      <li><b>DANGER：</b>手で「今日はここまで」サイン</li>
-    </ul>
-  </div>
-
-  <div class="type-card">
-    <img src="image/slow-cool.png" alt="Slow-Cool" class="type-img">
-    <h4>🌿Slow-Cool（慎重ハイブリッド型）</h4>
-    <ul>
-      <li><b>SAFE：</b>落ち着いて談笑</li>
-      <li><b>WARN：</b>少し眠そうにゆったり</li>
-      <li><b>DANGER：</b>ウトウト＋笑顔</li>
-    </ul>
-  </div>
-</div>
-
-<button id="toggleTypeCards" class="info-btn">タイプ別特徴を見る</button>
-
-<div class="result" id="result">
-  <h2 id="typeName"></h2>
-  <img id="typeImg" src="" alt="診断結果画像">
-
-  <div class="result-box">
-    <p class="desc" id="typeDesc"></p>
-    <p id="doseResult" class="desc"></p>
-  </div></style>
-</head>
-<body>
-<h1>ALTI飲酒タイプ診断</h1>
-
-<div id="quiz">
-  <form id="altiForm">
-    <!-- 🔹 質問セクション -->
-    <div class="question"><p>1. お酒を飲んで10分以内に顔が赤くなることがある。</p>
-      <label><input type="radio" name="q1" value="slow"> はい</label>
-      <label><input type="radio" name="q1" value="fast"> いいえ</label></div>
-    <div class="question"><p>2. ビール1杯でも動悸や息苦しさを感じることがある。</p>
-      <label><input type="radio" name="q2" value="slow"> はい</label>
-      <label><input type="radio" name="q2" value="fast"> いいえ</label></div>
-    <div class="question"><p>3. 少量でも体が熱くなり、手足がほてる。</p>
-      <label><input type="radio" name="q3" value="slow"> はい</label>
-      <label><input type="radio" name="q3" value="fast"> いいえ</label></div>
-    <div class="question"><p>4. 翌朝、頭痛や倦怠感が残ることが多い。</p>
-      <label><input type="radio" name="q4" value="slow"> はい</label>
-      <label><input type="radio" name="q4" value="fast"> いいえ</label></div>
-    <div class="question"><p>5. お酒を飲んだ夜は眠りが浅くなりやすい。</p>
-      <label><input type="radio" name="q5" value="slow"> はい</label>
-      <label><input type="radio" name="q5" value="fast"> いいえ</label></div>
-    <div class="question"><p>6. お酒を飲んだ翌日、集中力が落ちる。</p>
-      <label><input type="radio" name="q6" value="slow"> はい</label>
-      <label><input type="radio" name="q6" value="fast"> いいえ</label></div>
-    <div class="question"><p>7. 周りのテンションに引っ張られやすい。</p>
-      <label><input type="radio" name="q7" value="emo"> はい</label>
-      <label><input type="radio" name="q7" value="cool"> いいえ</label></div>
-    <div class="question"><p>8. 断るよりも「少しだけ飲もう」と思ってしまう。</p>
-      <label><input type="radio" name="q8" value="emo"> はい</label>
-      <label><input type="radio" name="q8" value="cool"> いいえ</label></div>
-    <div class="question"><p>9. 飲み会では静かよりも盛り上がっていたい。</p>
-      <label><input type="radio" name="q9" value="emo"> はい</label>
-      <label><input type="radio" name="q9" value="cool"> いいえ</label></div>
-    <div class="question"><p>10. お酒を飲むと気分が高揚しやすい。</p>
-      <label><input type="radio" name="q10" value="emo"> はい</label>
-      <label><input type="radio" name="q10" value="cool"> いいえ</label></div>
-
-    <!-- 🔹 体調・飲み会モード -->
-    <div class="option-group">
-      <p>🔋 体調を選択：</p>
-      <label><input type="radio" name="condition" value="1.2"> 絶好調</label>
-      <label><input type="radio" name="condition" value="1.0" checked> 普通</label>
-      <label><input type="radio" name="condition" value="0.8"> 疲労気味</label>
-
-      <p style="margin-top:10px;">🎉 飲み会モード：</p>
-      <label><input type="checkbox" id="partyMode"> ONにする</label>
-    </div>
-
-    <button type="button" onclick="showResult()">診断する</button>
-  </form>
-</div>
-
-<!-- 🔹 タイプ別カード群 -->
-<div id="typeCards" class="fade-in" style="display:none;">
-  <h3>🧠 タイプ別特徴</h3>
-
-  <div class="type-card">
-    <img src="image/slow-emo.png" alt="Slow-Emo" class="type-img">
-    <h4>🔥Slow-Emo（感情ジェット型）</h4>
-    <ul>
-      <li><b>SAFE：</b>笑顔でグラスを掲げる</li>
-      <li><b>WARN：</b>顔が赤く少しテンション高め</li>
-      <li><b>DANGER：</b>顔真っ赤＋氷水で冷静になろうとする</li>
-    </ul>
-  </div>
-
-  <div class="type-card">
-    <img src="image/fast-emo.png" alt="Fast-Emo" class="type-img">
-    <h4>⚡Fast-Emo（社交ターボ型）</h4>
-    <ul>
-      <li><b>SAFE：</b>ノリよく乾杯</li>
-      <li><b>WARN：</b>少し酔い気味でピース</li>
-      <li><b>DANGER：</b>グラグラ＋友人に止められる</li>
-    </ul>
-  </div>
-
-  <div class="type-card">
-    <img src="image/fast-cool.png" alt="Fast-Cool" class="type-img">
-    <h4>❄️Fast-Cool（理性スプリント型）</h4>
-    <ul>
-      <li><b>SAFE：</b>クールに軽く一杯</li>
-      <li><b>WARN：</b>顔が赤く理性を保つ</li>
-      <li><b>DANGER：</b>手で「今日はここまで」サイン</li>
-    </ul>
-  </div>
-
-  <div class="type-card">
-    <img src="image/slow-cool.png" alt="Slow-Cool" class="type-img">
-    <h4>🌿Slow-Cool（慎重ハイブリッド型）</h4>
-    <ul>
-      <li><b>SAFE：</b>落ち着いて談笑</li>
-      <li><b>WARN：</b>少し眠そうにゆったり</li>
-      <li><b>DANGER：</b>ウトウト＋笑顔</li>
-    </ul>
-  </div>
-</div>
-
-<button id="toggleTypeCards" class="info-btn">タイプ別特徴を見る</button>
-
+<!-- 🔹 結果表示 -->
 <div class="result" id="result">
   <h2 id="typeName"></h2>
   <img id="typeImg" src="" alt="診断結果画像">
@@ -357,48 +81,90 @@ img {width:100%; max-width:320px; border-radius:10px;}
     <p id="doseResult" class="desc"></p>
   </div>
 
-    <div id="intakeInput" class="fade-in">
+  <div id="intakeInput" class="fade-in">
     <h3>🍶 飲む予定を入力</h3>
 
     <div class="drinkRow"><span class="label">🍺 ビール（20g/本）</span>
-      <input type="number" id="beer" min="0" step="1" value="0"><span class="unit">本</span>
-    </div>
+      <input type="number" id="beer" min="0" step="1" value="0"><span class="unit">本</span></div>
     <div class="drinkRow"><span class="label">🍹 酎ハイ（20g/缶）</span>
-      <input type="number" id="chu" min="0" step="1" value="0"><span class="unit">缶</span>
-    </div>
+      <input type="number" id="chu" min="0" step="1" value="0"><span class="unit">缶</span></div>
     <div class="drinkRow"><span class="label">🥃 ハイボール（20g/杯）</span>
-      <input type="number" id="high" min="0" step="1" value="0"><span class="unit">杯</span>
-    </div>
+      <input type="number" id="high" min="0" step="1" value="0"><span class="unit">杯</span></div>
     <div class="drinkRow"><span class="label">🍶 日本酒（22g/合）</span>
-      <input type="number" id="sake" min="0" step="1" value="0"><span class="unit">合</span>
-    </div>
+      <input type="number" id="sake" min="0" step="1" value="0"><span class="unit">合</span></div>
     <div class="drinkRow"><span class="label">🟤 ウイスキー（19g/杯）</span>
-      <input type="number" id="whisky" min="0" step="1" value="0"><span class="unit">杯</span>
-    </div>
+      <input type="number" id="whisky" min="0" step="1" value="0"><span class="unit">杯</span></div>
 
     <button type="button" onclick="calcTotalIntake()">合計で判定する</button>
     <p id="intakeResult" class="desc"></p>
     <p id="advice" class="desc" style="font-style:italic;"></p>
   </div>
 
+  <button id="toggleTypeCards" class="info-btn">タイプ別特徴を見る</button>
+  <button onclick="restart()">もう一度診断する</button>
+
   <p class="desc" style="font-size:0.8em;color:#ccc;">
     ※ この診断はあくまで一般的な目安です。<br>
     健康状態や個人差により安全量は異なります。<br>
     無理のない範囲で、楽しくスマートに飲みましょう。
   </p>
+</div>
 
-  <button onclick="restart()">もう一度診断する</button>
+  <!-- 🔹 タイプ別特徴モーダル -->
+<div id="typeModal" class="modal">
+  <div class="modal-content zoom-in">
+    <button class="close-btn" id="closeTypeCards">×</button>
+    <h3>🧠 タイプ別特徴</h3>
+
+    <div class="type-card">
+      <img src="image/slow-emo.png" alt="Slow-Emo" class="type-img">
+      <h4>🔥Slow-Emo（感情ジェット型）</h4>
+      <ul>
+        <li><b>SAFE：</b>笑顔でグラスを掲げる</li>
+        <li><b>WARN：</b>顔が赤く少しテンション高め</li>
+        <li><b>DANGER：</b>顔真っ赤＋氷水で冷静になろうとする</li>
+      </ul>
+    </div>
+
+    <div class="type-card">
+      <img src="image/fast-emo.png" alt="Fast-Emo" class="type-img">
+      <h4>⚡Fast-Emo（社交ターボ型）</h4>
+      <ul>
+        <li><b>SAFE：</b>ノリよく乾杯</li>
+        <li><b>WARN：</b>少し酔い気味でピース</li>
+        <li><b>DANGER：</b>グラグラ＋友人に止められる</li>
+      </ul>
+    </div>
+
+    <div class="type-card">
+      <img src="image/fast-cool.png" alt="Fast-Cool" class="type-img">
+      <h4>❄️Fast-Cool（理性スプリント型）</h4>
+      <ul>
+        <li><b>SAFE：</b>クールに軽く一杯</li>
+        <li><b>WARN：</b>顔が赤く理性を保つ</li>
+        <li><b>DANGER：</b>手で「今日はここまで」サイン</li>
+      </ul>
+    </div>
+
+    <div class="type-card">
+      <img src="image/slow-cool.png" alt="Slow-Cool" class="type-img">
+      <h4>🌿Slow-Cool（慎重ハイブリッド型）</h4>
+      <ul>
+        <li><b>SAFE：</b>落ち着いて談笑</li>
+        <li><b>WARN：</b>少し眠そうにゆったり</li>
+        <li><b>DANGER：</b>ウトウト＋笑顔</li>
+      </ul>
+    </div>
+  </div>
 </div>
 
 <script>
+// ==== スコア判定 ====
 const alcoholTable = { beer:20, chu:20, high:20, sake:22, whisky:19 };
 
 function showResult(){
   const answeredQ = document.querySelectorAll('input[name^="q"]:checked').length;
-  if(answeredQ < 10){
-    alert("すべての質問に答えてください");
-    return;
-  }
+  if(answeredQ < 10){ alert("すべての質問に答えてください"); return; }
 
   let score = { slow:0, fast:0, emo:0, cool:0 };
   document.querySelectorAll('input[name^="q"]:checked').forEach(a => score[a.value]++);
@@ -406,123 +172,68 @@ function showResult(){
   const axis2 = score.emo > score.cool ? "emo" : "cool";
   const type = axis1 + "-" + axis2;
 
-  const baseDoseTable = {
-    "slow-emo":30,
-    "fast-emo":40,
-    "fast-cool":45,
-    "slow-cool":35
-  };
-
-  let grams = baseDoseTable[type];
+  const baseDose = { "slow-emo":30, "fast-emo":40, "fast-cool":45, "slow-cool":35 };
+  let grams = baseDose[type];
   const cond = parseFloat(document.querySelector('input[name="condition"]:checked').value);
   const party = document.getElementById("partyMode").checked ? 1.5 : 1.0;
   grams = Math.round(grams * cond * party);
 
-  const data = {
-    "slow-emo": {
-      name:"🔥Slow-Emo（感情ジェット型）",
-      img:"image/slow-emo.png",
-      desc:"感情が燃えやすく、ペースを見失いやすいタイプ。",
-      bg:"linear-gradient(135deg,#cc5800,#4a1e00)"
-    },
-    "fast-emo": {
-      name:"⚡Fast-Emo（社交ターボ型）",
-      img:"image/fast-emo.png",
-      desc:"ノリの良さが魅力の瞬発型。",
-      bg:"linear-gradient(135deg,#fdd835,#ff9800)"
-    },
-    "fast-cool": {
-      name:"❄️Fast-Cool（理性スプリント型）",
-      img:"image/fast-cool.png",
-      desc:"代謝が速くクールな理性タイプ。",
-      bg:"linear-gradient(135deg,#455a64,#1c313a)"
-    },
-    "slow-cool": {
-      name:"🌿Slow-Cool（慎重ハイブリッド型）",
-      img:"image/slow-cool.png",
-      desc:"穏やかで安定したタイプ。",
-      bg:"linear-gradient(135deg,#2e7d32,#0d5302)"
-    }
+  const info = {
+    "slow-emo": {name:"🔥Slow-Emo（感情ジェット型）", img:"image/slow-emo.png", desc:"感情が燃えやすくペースを見失いやすいタイプ。", bg:"linear-gradient(135deg,#b34700,#3d1f00)"},
+    "fast-emo": {name:"⚡Fast-Emo（社交ターボ型）", img:"image/fast-emo.png", desc:"ノリの良さが魅力の瞬発型。", bg:"linear-gradient(135deg,#b65b38,#4b2418)"},
+    "fast-cool": {name:"❄️Fast-Cool（理性スプリント型）", img:"image/fast-cool.png", desc:"代謝が速くクールな理性タイプ。", bg:"linear-gradient(135deg,#455a64,#1c313a)"},
+    "slow-cool": {name:"🌿Slow-Cool（慎重ハイブリッド型）", img:"image/slow-cool.png", desc:"穏やかで安定したタイプ。", bg:"linear-gradient(135deg,#2e7d32,#0d5302)"}
   };
 
-  const info = data[type];
-  document.body.style.background = info.bg;
-  document.getElementById("typeName").textContent = info.name;
-  document.getElementById("typeImg").src = info.img;
-  document.getElementById("typeDesc").textContent = info.desc;
+  document.body.style.background = info[type].bg;
+  document.getElementById("typeName").textContent = info[type].name;
+  document.getElementById("typeImg").src = info[type].img;
+  document.getElementById("typeDesc").textContent = info[type].desc;
 
-  const beer = Math.round(grams / 20),
-        chu = Math.round(grams / 20),
-        high = Math.round(grams / 20),
-        sake = Math.round(grams / 22),
-        whisky = Math.round(grams / 19);
-
+  const beer = Math.round(grams/20), chu = Math.round(grams/20), high = Math.round(grams/20), sake = Math.round(grams/22), whisky = Math.round(grams/19);
   document.getElementById("doseResult").innerHTML =
-    `推奨：純アルコール ${grams}g／日 程度<br>
-    🍺ビール:${beer}本 🍹酎ハイ:${chu}缶 🥃ハイボール:${high}杯<br>
-    🍶日本酒:${sake}合 🟤ウイスキー:${whisky}杯`;
+  `推奨：純アルコール ${grams}g／日 程度<br>
+   🍺ビール:${beer}本 🍹酎ハイ:${chu}缶 🥃ハイボール:${high}杯<br>
+   🍶日本酒:${sake}合 🟤ウイスキー:${whisky}杯`;
 
-  document.getElementById("quiz").style.display = "none";
-  document.getElementById("result").style.display = "block";
-  document.getElementById("intakeInput").style.display = "block";
-  window.lastDose = { grams, type };
+  document.getElementById("quiz").style.display="none";
+  document.getElementById("result").style.display="block";
+  window.lastDose = {grams,type};
 }
 
+// ==== 合計アルコール ====
 function calcTotalIntake(){
-  let total = 0;
-  for(let key in alcoholTable){
-    const val = parseFloat(document.getElementById(key).value) || 0;
-    total += alcoholTable[key] * val;
-  }
-
-  const safe = window.lastDose ? window.lastDose.grams : 40;
-  const type = window.lastDose ? window.lastDose.type : "fast-cool";
-
-  let msg="", color="", advice="";
-  if(total <= safe){
-    msg = `🍀 合計 ${total}g。理想的なペースです。`;
-    color = "#2e7d32";
-    advice = type.includes("emo") ? "水を多めにとって余韻を楽しもう。" : "軽い食事と一緒にリラックスを。";
-  } else if(total <= safe * 1.5){
-    msg = `⚠️ ${total}g（やや超過）。少しペースを落とそう。`;
-    color = "#f9a825";
-    advice = type.includes("emo") ? "途中でノンアルを挟もう！" : "油ものを控えて胃を守ろう。";
-  } else {
-    msg = `🚫 ${total}g（危険域）。今日はブレーキを。`;
-    color = "#c62828";
-    advice = type.includes("emo") ? "一度深呼吸してペースダウン。" : "水分をしっかり取って早めの休息を。";
-  }
-
-  const out = document.getElementById("intakeResult");
-  out.style.color = color;
-  out.innerHTML = msg;
-  document.getElementById("advice").textContent = advice;
+  let total=0; for(let k in alcoholTable){ total += (parseFloat(document.getElementById(k).value)||0)*alcoholTable[k]; }
+  const safe=window.lastDose?.grams||40; const type=window.lastDose?.type||"fast-cool";
+  let msg="",color="",advice="";
+  if(total<=safe){msg=`🍀 合計 ${total}g。理想的なペースです。`;color="#2e7d32";advice=type.includes("emo")?"水を多めにとって余韻を楽しもう。":"軽い食事と一緒にリラックスを。";}
+  else if(total<=safe*1.5){msg=`⚠️ ${total}g（やや超過）。少しペースを落とそう。`;color="#f9a825";advice=type.includes("emo")?"途中でノンアルを挟もう！":"油ものを控えて胃を守ろう。";}
+  else{msg=`🚫 ${total}g（危険域）。今日はブレーキを。`;color="#c62828";advice=type.includes("emo")?"一度深呼吸してペースダウン。":"水分をしっかり取って早めの休息を。";}
+  const out=document.getElementById("intakeResult");
+  out.style.color=color; out.innerHTML=msg; document.getElementById("advice").textContent=advice;
 }
 
+// ==== 再スタート ====
 function restart(){
-  document.body.style.background = "linear-gradient(135deg,#0f2027,#203a43,#2c5364)";
-  document.getElementById("result").style.display = "none";
-  document.getElementById("quiz").style.display = "block";
+  document.body.style.background="linear-gradient(135deg,#0f2027,#203a43,#2c5364)";
+  document.getElementById("result").style.display="none";
+  document.getElementById("quiz").style.display="block";
   document.querySelectorAll('input[type=radio],input[type=checkbox]').forEach(el=>el.checked=false);
   ['beer','chu','high','sake','whisky'].forEach(id=>document.getElementById(id).value=0);
-  document.getElementById("intakeInput").style.display = "none";
 }
 
-/* ▼ タイプ別カード（浮き上がりアニメ）表示切替 */
-document.getElementById("toggleTypeCards").addEventListener("click", () => {
-  const box = document.getElementById("typeCards");
-  const isHidden = box.style.display === "none" || box.style.display === "";
-  box.style.display = isHidden ? "block" : "none";
-  box.style.animation = isHidden ? "fadeUp 0.6s ease forwards" : "";
-  document.getElementById("toggleTypeCards").textContent = isHidden ? "閉じる" : "タイプ別特徴を見る";
-});
+// ==== モーダル制御 ====
+const modal=document.getElementById("typeModal");
+document.getElementById("toggleTypeCards").addEventListener("click",()=>modal.style.display="flex");
+document.getElementById("closeTypeCards").addEventListener("click",()=>modal.style.display="none");
+window.addEventListener("click",e=>{if(e.target===modal)modal.style.display="none";});
 
-/* ▼ PWA登録 */
+// ==== PWA登録 ====
 if('serviceWorker' in navigator){
   window.addEventListener('load',()=>{
     navigator.serviceWorker.register('service-worker.js')
-      .then(reg => console.log('✅ ServiceWorker registered:', reg))
-      .catch(err => console.log('❌ SW registration failed:', err));
+      .then(r=>console.log('✅ ServiceWorker登録成功:',r))
+      .catch(e=>console.log('❌ 失敗:',e));
   });
 }
 </script>
