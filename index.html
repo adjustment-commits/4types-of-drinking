@@ -111,6 +111,38 @@ img {width:100%; max-width:320px; border-radius:10px;}
 @keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
 @keyframes gradientShift{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
 @keyframes gradientFlow{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+
+/* ▼診断結果見出しと画像の間隔を改善（スマホ対応） */
+.result h2 {
+  font-size: 1.6em;
+  margin-top: 20px;
+  margin-bottom: 12px;
+  text-align: center;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+}
+
+/* 画像とテキストのバランスを調整 */
+.result img {
+  margin-top: 16px;
+  margin-bottom: 12px;
+  max-width: 320px;
+  width: 90%;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* スマホ時に余白をさらに確保 */
+@media (max-width: 480px) {
+  .result h2 {
+    font-size: 1.4em;
+    margin-top: 28px;
+    margin-bottom: 16px;
+  }
+  .result img {
+    margin-top: 20px;
+    margin-bottom: 18px;
+  }
+}
 </style>
 </head>
 <body>
