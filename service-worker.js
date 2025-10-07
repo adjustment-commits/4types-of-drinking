@@ -1,40 +1,33 @@
-const CACHE_NAME = "alti-drink-type-v3";
-const urlsToCache = [
-  "index.html",
-  "style.css",
-  "main.js",
-  "manifest.json",
-  "image/icon-192.png",
-  "image/icon-512.png",
-  "image/slow-emo.png",
-  "image/fast-emo.png",
-  "image/fast-cool.png",
-  "image/slow-cool.png"
+const CACHE_NAME = 'alti-drink-v1';
+const ASSETS = [
+  './',
+  './index.html',
+  './style.css',
+  './main.js',
+  './manifest.json',
+  './image/icon-192.png',
+  './image/icon-512.png',
+  // 画像も必要ならここに追加例:
+  './image/slow-emo.png',
+  './image/fast-emo.png',
+  './image/fast-cool.png',
+  './image/slow-cool.png'
 ];
 
-// ✅ インストール時にキャッシュ
-self.addEventListener("install", event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
+self.addEventListener('install', (e) => {
+  e.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS)));
+});
+
+self.addEventListener('activate', (e) => {
+  e.waitUntil(
+    caches.keys().then(keys =>
+      Promise.all(keys.map(k => (k !== CACHE_NAME ? caches.delete(k) : null)))
+    )
   );
 });
 
-// ✅ オフライン対応
-self.addEventListener("fetch", event => {
-  event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request);
-    })
-  );
-});
-
-// ✅ 古いキャッシュを削除
-self.addEventListener("activate", event => {
-  event.waitUntil(
-    caches.keys().then(keys => {
-      return Promise.all(
-        keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
-      );
-    })
+self.addEventListener('fetch', (e) => {
+  e.respondWith(
+    caches.match(e.request).then(res => res || fetch(e.request))
   );
 });
