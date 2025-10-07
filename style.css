@@ -119,6 +119,50 @@ img{width:100%; max-width:320px; border-radius:10px}
 .type-card ul{list-style:none; padding:0; margin:8px 0 0; line-height:1.6; font-size:.95em}
 .type-card ul li b{color:#ffb300}
 .type-img{display:block; width:100%; max-width:260px; margin:0 auto 10px; border-radius:10px}
+/* ===== ラグジュアリー背景のタイプカード ===== */
+.type-card {
+  color:#fff;
+  border-radius:16px;
+  padding:16px 18px;
+  margin:18px auto;
+  box-shadow:0 6px 20px rgba(0,0,0,0.5);
+  text-align:left;
+  border:1px solid rgba(255,255,255,0.15);
+  position:relative;
+  overflow:hidden;
+}
+.type-card::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  opacity:0.25;
+  background:radial-gradient(circle at top left,rgba(255,255,255,0.6),transparent 60%);
+  pointer-events:none;
+}
+.type-card h4 {
+  text-align:center;
+  font-size:1.1em;
+  font-weight:700;
+  margin:12px 0 8px;
+  text-shadow:0 1px 3px rgba(0,0,0,0.5);
+}
+
+/* 各タイプ別の背景テーマ */
+.type-card:nth-of-type(1) { background:linear-gradient(135deg,#7a2e00,#ff6a00,#ffb347); }
+.type-card:nth-of-type(2) { background:linear-gradient(135deg,#b85b00,#ff9500,#ffd27f); }
+.type-card:nth-of-type(3) { background:linear-gradient(135deg,#1c313a,#304ffe,#81d4fa); }
+.type-card:nth-of-type(4) { background:linear-gradient(135deg,#003300,#1b5e20,#66bb6a); }
+
+/* 縁に光沢ライン */
+.type-card::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  border:1px solid rgba(255,255,255,0.25);
+  box-shadow:inset 0 0 15px rgba(255,255,255,0.15);
+  pointer-events:none;
+}
 
 /* “タイプ別特徴を見る” ボタン */
 .info-btn{
