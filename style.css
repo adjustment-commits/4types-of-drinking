@@ -118,6 +118,11 @@ img{width:100%; max-width:320px; border-radius:10px}
 }
 .type-card ul{list-style:none; padding:0; margin:8px 0 0; line-height:1.6; font-size:.95em}
 .type-card ul li b{color:#ffb300}
+/* タイプカード内の説明テキストを白っぽく調整 */
+.type-card ul li {
+  color: rgba(255,255,255,0.9);  /* ← 白寄り（0.9で少し柔らかく） */
+  text-shadow: 0 1px 3px rgba(0,0,0,0.4); /* 見やすさ向上 */
+}
 .type-img{display:block; width:100%; max-width:260px; margin:0 auto 10px; border-radius:10px}
 /* ===== ラグジュアリー背景のタイプカード ===== */
 .type-card {
