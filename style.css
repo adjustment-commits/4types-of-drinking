@@ -154,7 +154,7 @@ img{width:100%; max-width:320px; border-radius:10px}
 
 /* 各タイプ別の背景テーマ */
 .type-card:nth-of-type(1) { background:linear-gradient(135deg,#7a2e00,#ff6a00,#ffb347); }
-.type-card:nth-of-type(2) {　background:linear-gradient(135deg,#8b4a12,#d88c3a,#ffcc80);color:#222;text-shadow:none;}
+.type-card:nth-of-type(2) { background:linear-gradient(135deg,#8b4a12,#d88c3a,#ffcc80);color:#222;text-shadow:none;}
 .type-card:nth-of-type(3) { background:linear-gradient(135deg,#1c313a,#304ffe,#81d4fa); }
 .type-card:nth-of-type(4) { background:linear-gradient(135deg,#003300,#1b5e20,#66bb6a); }
 
@@ -193,4 +193,11 @@ img{width:100%; max-width:320px; border-radius:10px}
 }
 @keyframes gradientFlow{
   0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%}
+}
+/* ✅ タイプ別カード2（Fast-Emo）のテキストを白色に統一 */
+.type-card:nth-of-type(2),
+.type-card:nth-of-type(2) h4,
+.type-card:nth-of-type(2) ul li {
+  color: #fff !important;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5); /* 明るい背景上でも可読性を確保 */
 }
