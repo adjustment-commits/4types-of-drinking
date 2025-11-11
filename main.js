@@ -66,7 +66,7 @@ function showResult(){
 
   const info = palette[type];
   document.body.style.background = info.bg;
-  document.getElementById('typeName').textContent = info.name;
+  document.getElementById('typeName').innerHTML = info.name;
   document.getElementById('typeImg').src = info.img;
   document.getElementById('typeDesc').textContent = info.desc;
 
