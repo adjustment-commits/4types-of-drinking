@@ -50,16 +50,16 @@ function showResult(){
   grams = Math.round(grams * cond * party);
 
   const palette = {
-    "slow-emo": { name:"🔥Slow-Emo（感情ジェット型）", img:"./image/slow-emo.png",
+    "slow-emo": { name:"🔥Slow-Emo<br>感情ジェット型", img:"./image/slow-emo.png",
                   desc:"感情が燃えやすく、ペースを見失いやすいタイプ。",
                   bg:"linear-gradient(135deg,#b34700,#3d1f00)" },
-    "fast-emo": { name:"⚡Fast-Emo（社交ターボ型）", img:"./image/fast-emo.png",
+    "fast-emo": { name:"⚡Fast-Emo<br>社交ターボ型", img:"./image/fast-emo.png",
                   desc:"ノリの良さが魅力の瞬発型。",
                   bg:"linear-gradient(135deg,#b65b38,#4b2418)" },
-    "fast-cool":{ name:"❄️Fast-Cool（理性スプリント型）", img:"./image/fast-cool.png",
+    "fast-cool":{ name:"❄️Fast-Cool<br>理性スプリント型", img:"./image/fast-cool.png",
                   desc:"代謝が速くクールな理性タイプ。",
                   bg:"linear-gradient(135deg,#455a64,#1c313a)" },
-    "slow-cool":{ name:"🌿Slow-Cool（慎重ハイブリッド型）", img:"./image/slow-cool.png",
+    "slow-cool":{ name:"🌿Slow-Cool<br>慎重ハイブリッド型", img:"./image/slow-cool.png",
                   desc:"穏やかで安定したタイプ。",
                   bg:"linear-gradient(135deg,#2e7d32,#0d5302)" }
   };
